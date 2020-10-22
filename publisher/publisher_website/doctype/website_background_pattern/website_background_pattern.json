@@ -1,0 +1,67 @@
+{
+ "autoname": "field:background_name",
+ "creation": "2020-07-06 23:28:22.308046",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "background_name",
+  "section_01",
+  "image"
+ ],
+ "fields": [
+  {
+   "fieldname": "background_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Background Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "depends_on": "eval:!doc.__islocal;",
+   "fieldname": "section_01",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "label": "Image"
+  }
+ ],
+ "image_field": "image",
+ "modified": "2020-10-18 01:33:17.723087",
+ "modified_by": "Administrator",
+ "module": "Publisher Website",
+ "name": "Website Background Pattern",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Website Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

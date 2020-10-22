@@ -1,0 +1,65 @@
+{
+ "autoname": "field:item_group_name",
+ "creation": "2020-07-09 00:55:53.360659",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item_group_name",
+  "section_theme",
+  "display_option",
+  "section_row",
+  "number_of_columns"
+ ],
+ "fields": [
+  {
+   "fieldname": "item_group_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Group Name",
+   "options": "Item Group",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "display_option",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Display Option",
+   "options": "After Section\nAfter Filter"
+  },
+  {
+   "fieldname": "section_row",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Section Row"
+  },
+  {
+   "fieldname": "section_theme",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Section Theme",
+   "options": "Website Section Theme",
+   "reqd": 1
+  },
+  {
+   "default": "6",
+   "description": "Number of columns for item group section. 6 cards will be shown per slider if not set.",
+   "fieldname": "number_of_columns",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Number of Columns"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-10-18 01:33:44.844385",
+ "modified_by": "Administrator",
+ "module": "Publisher Website",
+ "name": "Website Homepage Item Group",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

@@ -1,0 +1,164 @@
+<div class="comment-view mb-4">
+	{% if comment_text %}
+	<div class="comment-header mb-4">{{ comment_text }}</div>
+	{% endif %}
+	{% if not comment_list %}
+	<div class="no-comment">
+		<p class="text-muted">{{ _("No reviews yet. Start a new discussion.") }}</p>
+	</div>
+	{% endif %}
+
+		<ul class="comments" itemscope itemtype="http://schema.org/UserComments" id="comment-list">
+			{% for comment in comment_list %}
+			<span class='{% if max_comments_show < loop.index %}comment_display_row hidden{% endif %}'>
+			{% include "templates/includes/comments/comment.html" %}
+			</span>
+			{% endfor %}
+			<a class="view_all_reviews text-color-secondary {% if max_comments_show >= comment_list|length %}hidden{% endif %}">{{ _("View All Reviews")}} ({{ comment_list|length or 0 }})</a>
+			<span id="view_all_reviews_value" style="display:none;" value="" />
+
+		</ul>
+
+</div>
+<hr class="solid my-5">
+
+{% if not is_communication %}
+<div class="add-comment-section">
+	<div class="text-muted hidden login-required">
+		{{ _("Only registered users can write reviews. Please") }}, <a href="/login?redirect-to={{ pathname }}">{{ _("Login to add a review") }}</a>
+	</div>
+
+	<div class="comment-form-wrapper">
+		<a class="add-comment btn btn-primary btn-modern text-color-light">{{ _("Add a review") }}</a>
+			<div style="display: none;" id="comment-form">
+			<h4>{{ _("Add a review") }}</h4>
+			<div class="alert" style="display:none;"></div>
+			<form>
+				<fieldset>
+					{% if allow_rating %}<p><label class="required font-weight-bold text-dark">{{ _("Rating") }}</label>
+					<input type="text" class="rating-loading" name="publication_rating" value="0" title="" data-plugin-star-rating data-plugin-options="{'color': 'primary', 'size':'xs'}"></p>
+					{% endif %}
+					<div class="row {% if _login_required %} hidden {% endif %}"
+						style="margin-bottom: 15px;">
+						<div class="col-sm-6">
+							<label class="required font-weight-bold text-dark">{{ _("Your Name") }}</label>
+							<input class="form-control comment_by" name="comment_by"
+								placeholder="{{ _("Your Name") }}" type="text">
+						</div>
+						<div class="col-sm-6">
+							<label class="required font-weight-bold text-dark">{{ _('Your Email Address') }}</label>
+							<input class="form-control comment_email" name="comment_email"
+								placeholder="{{ _('Your Email Address') }}" type="email">
+						</div>
+					</div>
+					<p><label class="required font-weight-bold text-dark">{{ _("Review") }}</label>
+						<textarea class="form-control" name="comment" rows=10
+						placeholder="{{ _("Comment") }}"></textarea></p>
+                        <button class="btn btn-primary btn-modern" id="submit-comment" style="margin-top:10px">
+                            {{ _("Post Review") }}</button>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+</div>
+{% endif %}
+<script>
+	frappe.ready(function() {
+		var login_required = {{ login_required and 1 or 0 }};
+
+		if (login_required && !frappe.is_user_logged_in()) {
+			$(".login-required, .comment-form-wrapper").toggleClass("hidden");
+		}
+
+		if(frappe.is_user_logged_in()) {
+			$('input.comment_by').prop("disabled", true);
+			$('input.comment_email').prop("disabled", true);
+		}
+
+		var n_comments = $(".comment-row").length;
+
+		if(n_comments) {
+			$(".no_comment").toggle(false);
+		}
+		if(n_comments > {{max_post_allowed or 50}}) {
+			$(".add-comment").toggle(false)
+				.parent().append("<div class='text-muted'>Comments are closed.</div>")
+		}
+		$(".add-comment").click(function() {
+			$(this).toggle(false);
+		 	$("#comment-form").toggle();
+            var full_name = "", user_id = "";
+            if(frappe.is_user_logged_in()) {
+                full_name = frappe.get_cookie("full_name");
+                user_id = frappe.get_cookie("user_id");
+                if(user_id != "Guest") {
+        			$("[name='comment_email']").val(user_id);
+        			$("[name='comment_by']").val(full_name);
+                }
+            }
+			$("#comment-form textarea").val("");
+			})
+
+
+		$(".view_all_reviews").click(function() {
+			if ($(this).text() != '{{ _("Less Comments") }}') {
+				view_all_reviews_value.value = $(this).text();
+				$(".comment_display_row").toggleClass("hidden");
+				$(this).text('{{ _("Less Comments") }}');
+      }
+      else {
+				$(".comment_display_row").toggleClass("hidden");
+				$(this).text(view_all_reviews_value.value);
+      }
+			})
+
+		$("#submit-comment").click(function() {
+			var args = {
+				comment_by: $("[name='comment_by']").val(),
+				comment_email: $("[name='comment_email']").val(),
+				comment: $("[name='comment']").val(),
+				publication_rating: $("[name='publication_rating']").val(),
+				reference_doctype: "{{ reference_doctype or doctype }}",
+				reference_name: "{{ reference_name or name }}",
+				comment_type: "Comment",
+				route: "{{ pathname }}",
+			}
+
+			if(!args.comment_by || !args.comment_email || !args.comment) {
+				frappe.msgprint("{{ _("All fields are necessary to submit the review.") }}");
+				return false;
+			}
+
+			if (args.comment_email!=='Administrator' && !validate_email(args.comment_email)) {
+				frappe.msgprint("{{ _("Please enter a valid email address.") }}");
+				return false;
+			}
+
+			frappe.call({
+				btn: this,
+				type: "POST",
+				method: "publisher.templates.includes.comments.comments.add_comment",
+				args: args,
+				callback: function(r) {
+					if(r.exc) {
+						if(r._server_messages)
+							frappe.msgprint(r._server_messages);
+					} else {
+						if (r.message) {
+							$(r.message).appendTo("#comment-list");
+						} else {
+							// probably spam
+							frappe.msgprint('{{ _("Thank you for your review. It will be published after approval") }}');
+						}
+						$(".no-comment, .add-comment").toggle(false);
+						$("#comment-form").toggle();
+					}
+					$(".add-comment").text(__("Add Another Review"));
+					$(".add-comment").toggle();
+				}
+			})
+
+			return false;
+		})
+	});
+</script>

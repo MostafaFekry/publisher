@@ -1,0 +1,39 @@
+{% if related_items_details %}
+<hr class="solid my-5">
+<h4 class="mb-3">{{ _("Related Publication")}}</h4>
+<div class="products row mb-4">
+	<div class="col">
+		<div class="owl-carousel owl-theme show-nav-title nav-dark mb-0" data-plugin-options="{'loop': false, 'autoplay': false,'items': 4, 'nav': true, 'dots': false, 'margin': 20, 'autoplayHoverPause': true, 'autoHeight': false}">
+
+			{% for item in related_items_details %}
+				{% if not item.item_name == item_name %}
+				<div class="product mb-0">
+					<div class="product-thumb-info border-0 mb-3">
+
+						<a href="{{ (item.route)|abs_url }}">
+							<div class="product-thumb-info-image">
+								<img alt="" class="img-fluid" src="{{ item.website_image or item.image or website_no_img_available }}">
+
+							</div>
+						</a>
+					</div>
+					<div class="d-flex justify-content-between">
+						<div>
+							<h3 class="text-3-4 font-weight-normal font-alternative text-transform-none line-height-3 mb-0"><a href="{{ (item.route)|abs_url }}" class="text-color-primary text-color-hover-primary">{{ _(item.item_name) }}</a></h3>
+						</div>
+					</div>
+					<div title="Rated 5 out of 5">
+						<input type="text" class="d-none" value="5" title="" data-plugin-star-rating data-plugin-options="{'displayOnly': true, 'color': 'secondary', 'size':'xs'}">
+					</div>
+					{% if shopping_cart.cart_settings.show_price and item.product_info.price %}
+					<p class="price text-5 mb-3">
+						<span class="amount">{{ _(item.product_info.price.currency) }} {{ (item.product_info.price.price_list_rate) }}</span>
+					</p>
+					{% endif %}
+				</div>
+				{% endif %}
+			{% endfor %}
+		</div>
+	</div>
+</div>
+{% endif %}

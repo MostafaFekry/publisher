@@ -1,0 +1,218 @@
+{% set show_price = frappe.db.get_single_value('Shopping Cart Settings', 'show_price') %}
+{% set items_count = itemscount|length %}
+{% extends "templates/web.html" %}
+
+{% block title %}{{ _('Products') }}{% endblock %}
+{% block header %}
+{% endblock header %}
+
+{% block page_content %}
+<section class="section section-no-border custom-section-spacement-1 bg-color-light m-0  pt-0">
+	<div class="container">
+		<div class="row">
+			<div class="col-12 order-2 {% if product_settings.enable_field_filters or product_settings.enable_attribute_filters %} col-md-9 {% if filter_position == 'Right' %} order-md-1{% endif %}{% endif %}">
+				<div class="input-group input-group-sm mb-3 d-none">
+					<input type="search" class="form-control" placeholder="{{_('Search')}}"
+						aria-label="{{_('Product Search')}}" aria-describedby="product-search"
+						value="{{ frappe.form_dict.search or '' }}"
+					>
+				</div>
+
+				<div class="row toolbar mb-4 pb-2">
+					<div class="col-md-6">
+						<div class="shop-tab">
+							<div class="list-page">
+								<p>{% if frappe.form_dict.q and frappe.form_dict.category %}
+								{{ _("Search By")}} "{{ frappe.form_dict.q }}" {{ _("on")}} {{ _(frappe.form_dict.category) }}, {% endif  %}{% if frappe.form_dict.pg and frappe.form_dict.pg|int != 1 %}{{ (frappe.form_dict.pg|int - 1) * page_length }}{% else %}1{% endif %} - {% if items|len < page_length %}{% if frappe.form_dict.pg|int == 0 %}{{ items|len  }}{% else %}{{ ((frappe.form_dict.pg|int-1) * page_length) + items|len  }}{% endif %}{% else %}{% if frappe.form_dict.pg|int == 0 %}{{ page_length  }}{% else %}{{ ((frappe.form_dict.pg|int-1) * page_length) + page_length }}{% endif %}{% endif %} {{ _("of") }} {{ items_count or '0' }} {{ _("results") }}</p>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-md-6 d-flex justify-content-end">
+						<span class="pt-1">{{ _("Sort By") }}</span>
+						<select id="sorter" class="mx-2 sorter" data-role="sorter" style='max-height:33px;'>
+							<option {% if frappe.form_dict.sort == 'relevance' %}selected="selected"{% endif %} value="relevance"> {{ _("Relevance") }} </option>
+							<option {% if frappe.form_dict.sort == 'date' %}selected="selected"{% endif %} value="date"> {{ _("Publication Date") }} </option>
+							<option {% if frappe.form_dict.sort == 'namease' %}selected="selected"{% endif %} value="namease"> {{ _("Title - A to Z") }} </option>
+							<option {% if frappe.form_dict.sort == 'namedesc' %}selected="selected"{% endif %} value="namedesc"> {{ _("Title - Z to A") }} </option>
+						</select>
+					</div>
+				</div>
+				<div class="row products-list">
+					{% if items %}
+						{% for item in items %}
+							{% include "publisher/www/all-books/item_row.html" %}
+						{% endfor %}
+					{% else %}
+						{% include "publisher/www/all-books/not_found.html" %}
+					{% endif %}
+				</div>
+				{% if items %}
+					{% set pages_count = (items_count/page_length)|round(0, 'ceil')|int %}
+					{% set page_index = frappe.form_dict.pg|int or 1  %}
+					{% set page_start_index = page_index - 3 if page_index >= 3 else 0  %}
+					{% set page_end_index = page_index + 3 if page_index <= pages_count - 3 else pages_count  %}
+					<div class="row toolbarfootor pt-2">
+						<div class="col-12 text-right">
+							<p class="list-page float-right">{{_("Page") }} {{ page_index }} {{_("of") }} {{ pages_count }}</p>
+							{% if items_count > page_length %}
+							<ul class="pagination float-right">
+								{% if frappe.form_dict.pg|int > 1 %}
+								<li class="page-item"><a class="page-link text-color-primary btn-prev" style="cursor: pointer;" data-start="{{ frappe.form_dict.pg|int - 1 }}">{{ _("Prev") }}</a></li>
+								{% endif %}
+								{% for n in range(page_start_index+1 ,page_end_index+1) %}
+										<li class="page-item {% if frappe.form_dict.pg|int == (n) or (not frappe.form_dict.pg and (n) == 1) %}active{% endif %}"><a class="page-link {% if frappe.form_dict.pg|int == (n) or (not frappe.form_dict.pg and (n) == 1) %}text-color-light{%else%}text-color-primary{% endif %} btn-page" style="cursor: pointer;" data-start="{{ n }}">{{ n }}</a></li>
+								{% endfor %}
+								{% if (frappe.form_dict.pg|int * page_length) < items_count %}
+								<li class="page-item"><a class="page-link text-color-primary btn-next"  style="cursor: pointer;" data-start="{{ frappe.form_dict.pg|int + 1 }}">{{ _("Next") }}</i></a></li>
+								{% endif %}
+							</ul>
+							{% endif %}
+
+						</div>
+					</div>
+				{% endif %}
+			</div>
+			<div class="col-12 order-1{% if product_settings.enable_field_filters or product_settings.enable_attribute_filters %} col-md-3{% if filter_position == 'Right' %} order-md-2{% endif %}{% else %} d-none{% endif %}">
+				<button class="btn btn-primary btn-sm btn-block d-md-none"
+					type="button"
+					data-toggle="collapse"
+					data-target="#product-filters"
+					aria-expanded="false"
+					aria-controls="product-filters"
+					style="white-space: nowrap;"
+				>
+					{{ _('Filters Options') }}
+				</button>
+				{% if frappe.form_dict.start or frappe.form_dict.field_filters or frappe.form_dict.attribute_filters or frappe.form_dict.search %}
+				<a class="mb-3 d-inline-block" href="/all-books">{{ _('Clear filters') }}</a>
+				{% endif  %}
+
+				<div class="collapse d-md-block" id="product-filters">
+					<div class="toggle toggle-primary toggle-sm " data-plugin-toggle><!-- toggle-minimal -->
+					{% for field_filter in field_filters %}
+						{%- set item_field =  field_filter[0] %}
+						{%- set values =  field_filter[1] %}
+						{% if values %}
+						<section class="toggle {% if loop.index == 1 %}active{% endif %} mb-4">
+									<a class="toggle-title mb-2 text-uppercase">{% if item_field.label == 'Item Group' %}{{ _('Publication Category') }}{% else %}{{ _(item_field.label) }}{% endif %}</a>
+									<div class="toggle-content px-2">
+									{% if values | len > 20 %}
+									<!-- show inline filter if values more than 20 -->
+									<input type="text" class="form-control form-control-sm mb-2 product-filter-filter"/>
+									{% endif %}
+
+									{% if values %}
+									<div class="filter-options">
+										{% for value in values %}
+										<div class="custom-control custom-checkbox" data-value="{{ value }}">
+											<input type="checkbox"
+												class="product-filter field-filter custom-control-input"
+												id="{{value}}"
+												data-filter-name="{{ item_field.fieldname }}"
+												data-filter-value="{{ value }}"
+											>
+											<label class="custom-control-label" for="{{value}}">
+												{{ _(value)}}
+											</label>
+										</div>
+										{% endfor %}
+									</div>
+									{% else %}
+									<i class="text-muted">{{ _('No values') }}</i>
+									{% endif %}
+								</div>
+						</section>
+						{% endif %}
+					{% endfor %}
+
+					{% for attribute in attribute_filters %}
+					<section class="toggle mb-4">
+								<a class="toggle-title mb-2 text-uppercase">{{ attribute.name }}</a>
+								<div class="toggle-content px-2">
+								{% if values | len > 20 %}
+								<!-- show inline filter if values more than 20 -->
+								<input type="text" class="form-control form-control-sm mb-2 product-filter-filter"/>
+								{% endif %}
+
+								{% if attribute.item_attribute_values %}
+								<div class="filter-options">
+									{% for attr_value in attribute.item_attribute_values %}
+									<div class="custom-control custom-checkbox" data-value="{{ value }}">
+										<input type="checkbox"
+											class="product-filter attribute-filter custom-control-input"
+											id="{{attr_value.name}}"
+											data-attribute-name="{{ attribute.name }}"
+											data-attribute-value="{{ attr_value.attribute_value }}"
+											{% if attr_value.checked %} checked {% endif %}
+										>
+										<label class="custom-control-label" for="{{attr_value.name}}">
+											{{ attr_value.attribute_value }}
+										</label>
+									</div>
+									{% endfor %}
+								</div>
+								{% else %}
+								<i class="text-muted">{{ _('No values') }}</i>
+								{% endif %}
+							</div>
+					</section>
+					{% endfor %}
+				</div>
+
+				<script>
+					frappe.ready(() => {
+						$('.product-filter-filter').on('keydown', frappe.utils.debounce((e) => {
+							const $input = $(e.target);
+							const keyword = ($input.val() || '').toLowerCase();
+							const $filter_options = $input.next('.filter-options');
+
+							$filter_options.find('.custom-control').show();
+							$filter_options.find('.custom-control').each((i, el) => {
+								const $el = $(el);
+								const value = $el.data('value').toLowerCase();
+								if (!value.includes(keyword)) {
+									$el.hide();
+								}
+							});
+						}, 300));
+					})
+				</script>
+				</div>
+			</div>
+
+
+		</div>
+
+		<script>
+			frappe.ready(() => {
+				$('.btn-prev, .btn-next, .btn-page').click((e) => {
+					const $btn = $(e.target);
+					const pg = $btn.data('start');
+					$btn.prop('disabled', true);
+					let query_params = frappe.utils.get_query_params();
+					query_params.pg = pg;
+					let path = window.location.pathname + '?' + frappe.utils.get_url_from_dict(query_params);
+					window.location.href = path;
+				});
+			});
+		</script>
+		<script>
+			frappe.ready(() => {
+				$('.sorter').change((e) => {
+					const $sort = $(e.target);
+					$sort.prop('disabled', true);
+					const sorter = $sort.val();
+					let query_params = frappe.utils.get_query_params();
+					query_params.sort = sorter;
+					let path = window.location.pathname + '?' + frappe.utils.get_url_from_dict(query_params);
+					window.location.href = path;
+				});
+			});
+		</script>
+
+	</div>
+</section>
+
+{% endblock %}

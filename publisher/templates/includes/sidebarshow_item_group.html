@@ -1,0 +1,102 @@
+<!--<h4>Without Borders and Background</h4>
+<div class="accordion without-bg without-borders" id="accordion12">
+	<div class="card card-default">
+		<div class="card-header" id="collapse12HeadingOne">
+			<h4 class="card-title m-0 py-2">
+				<a class="accordion-toggle" data-toggle="collapse" data-target="#collapse12One" aria-expanded="true" aria-controls="collapse12One"></a>
+				<span onclick="document.location.href='http://publisher.systematiceg.com/en/publication/architecture'">Accordion Title 1</span>
+
+			</h4>
+		</div>
+		<div id="collapse12One" class="collapse show" aria-labelledby="collapse12HeadingOne" data-parent="#accordion12">
+			<div class="card-body">
+
+
+				<div class="accordion without-bg without-borders ml-4" id="accordion13">
+					<div class="card card-default">
+						<div class="card-header" id="collapse13HeadingOne1">
+							<h4 class="card-title m-0 py-2">
+							<a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#collapse13One1" aria-expanded="false" aria-controls="collapse13One1"></a>
+							<span onclick="document.location.href='http://publisher.systematiceg.com/en/publication/architecture'">Accordion Title sub 1</span>
+							</h4>
+						</div>
+						<div id="collapse13One1" class="collapse" aria-labelledby="collapse13HeadingOne1" data-parent="#accordion13">
+							<div class="card-body">
+								<p class="mb-0">Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien. Praesent id enim sit amet odio vulputate eleifend in in tortor. Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien. Praesent id enim sit amet odio vulputate eleifend in in tortor. Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien.</p>
+							</div>
+						</div>
+					</div>
+					<div class="card card-default">
+						<div class="card-header" id="collapse13HeadingOne2">
+							<h4 class="card-title m-0 py-2">
+								<a class="accordion-toggle" data-toggle="collapse" data-target="#collapse13One2" aria-expanded="true" aria-controls="collapse13One2"></a>
+								<span onclick="document.location.href='http://publisher.systematiceg.com/en/publication/architecture'">Accordion Title sub 2</span>
+							</h4>
+						</div>
+						<div id="collapse13One2" class="collapse show" aria-labelledby="collapse13HeadingOne2" data-parent="#accordion13">
+							<div class="card-body">
+								<p class="mb-0">Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien. Praesent id enim sit amet odio vulputate eleifend in in tortor. Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien. Praesent id enim sit amet odio vulputate eleifend in in tortor. Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+			</div>
+		</div>
+	</div>
+	<div class="card card-default">
+		<div class="card-header" id="collapse12HeadingTwo">
+			<h4 class="card-title m-0 py-2">
+				<a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#collapse12Two" aria-expanded="false" aria-controls="collapse12Two"></a>
+				<span onclick="document.location.href='http://publisher.systematiceg.com/en/publication/architecture'">Accordion Title 2</span>
+			</h4>
+		</div>
+		<div id="collapse12Two" class="collapse" aria-labelledby="collapse12HeadingTwo" data-parent="#accordion12">
+			<div class="card-body">
+				<p class="mb-0">Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien. Praesent id enim sit amet odio vulputate eleifend in in tortor. Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien. Praesent id enim sit amet odio vulputate eleifend in in tortor. Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien.</p>
+			</div>
+		</div>
+	</div>
+	<div class="card card-default">
+		<div class="card-header" id="collapse12HeadingThree">
+			<h4 class="card-title m-0 py-2">
+				<a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#collapse12Three" aria-expanded="false" aria-controls="collapse12Three"></a>
+				<span onclick="document.location.href='http://publisher.systematiceg.com/en/publication/architecture'">Accordion Title 2</span>
+			</h4>
+		</div>
+		<div id="collapse12Three" class="collapse" aria-labelledby="collapse12HeadingThree" data-parent="#accordion12">
+			<div class="card-body">
+				<p class="mb-0">Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien. Praesent id enim sit amet odio vulputate eleifend in in tortor. Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien. Praesent id enim sit amet odio vulputate eleifend in in tortor. Donec tellus massa, tristique sit amet condim vel, facilisis quis sapien.</p>
+			</div>
+		</div>
+	</div>
+</div>-->
+
+{% macro render_item(items, parent) %}
+
+{% for item in items %}
+	{% if item.parent_item_group == parent %}
+	{%- set parent_sub = item.item_group_name -%}
+	<li class="nav-item"><a class="nav-link bg-transparent {% if (item.route or '')|abs_url == '/'+path %} active{% endif %}" href="{{ (item.route)|abs_url }}">{{ _(item.item_group_name) }} {% if item.item_item_group_count == 0 %}{% else %} ({{ item.item_item_group_count }}) {% endif %}</a>
+		<ul>
+			{{ render_item(items, parent_sub) }}
+		</ul>
+	</li>
+	{% endif %}
+{% endfor %}
+
+{%- endmacro -%}
+
+
+{% for item in sidebarshow_item_group %}
+	{% if loop.index == 1 %}
+	{%- set parent_item_group = item.item_group_name -%}
+	<h5 class="font-weight-bold pt-3">{{ _(item.item_group_name) }}</h5>
+	<ul class="nav nav-list flex-column mt-2 mb-5 p-relative">
+		{{ render_item(sidebarshow_item_group, parent_item_group) }}
+	</ul>
+	{% endif %}
+		</ul>
+{% endfor %}

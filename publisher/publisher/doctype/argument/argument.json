@@ -1,0 +1,250 @@
+{
+ "allow_events_in_timeline": 1,
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2020-03-22 13:13:35.175035",
+ "doctype": "DocType",
+ "document_type": "Document",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "workflow_state",
+  "naming_series",
+  "author_details",
+  "author",
+  "author_name",
+  "email",
+  "column_break_7",
+  "telephone_column",
+  "author_group",
+  "section_break_6",
+  "title",
+  "date_of_publication",
+  "column_break_12",
+  "title_name",
+  "country_of_issue",
+  "approval_section",
+  "attachment",
+  "column_break_18",
+  "evaluation",
+  "section_break_13",
+  "contract_type",
+  "section_break_12",
+  "publication_cover",
+  "pulication_cover_2",
+  "section_break_25",
+  "isbn_section",
+  "isbn",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "workflow_state",
+   "fieldtype": "Data",
+   "in_preview": 1,
+   "label": "Workflow State",
+   "read_only": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Data",
+   "label": "Series",
+   "options": "Arg-.YY.-",
+   "read_only": 1
+  },
+  {
+   "fieldname": "author_details",
+   "fieldtype": "Section Break",
+   "label": "Author Details"
+  },
+  {
+   "fieldname": "author",
+   "fieldtype": "Link",
+   "label": "Author",
+   "options": "Author"
+  },
+  {
+   "bold": 1,
+   "fieldname": "author_name",
+   "fieldtype": "Data",
+   "in_preview": 1,
+   "label": "Author Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "telephone_column",
+   "fieldtype": "Data",
+   "label": "Telephone",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_6",
+   "fieldtype": "Section Break",
+   "label": "Publication Details "
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Title ",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "title_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "label": "Title Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "country_of_issue",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "label": "Country of Issue",
+   "options": "Country",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.workflow_state==\"Approved\" \n|| doc.workflow_state==\"Contracting\"\n|| doc.workflow_state==\"Proofreading\"\n|| doc.workflow_state==\"Design\"\n|| doc.workflow_state==\"ISBN\"",
+   "fieldname": "section_break_13",
+   "fieldtype": "Section Break",
+   "label": "Contract "
+  },
+  {
+   "fieldname": "date_of_publication",
+   "fieldtype": "Date",
+   "label": "Date of publication "
+  },
+  {
+   "fieldname": "attachment",
+   "fieldtype": "Attach",
+   "label": "Attachment"
+  },
+  {
+   "depends_on": "eval:doc.workflow_state==\"Proofreading\" \n|| doc.workflow_state==\"Design\"\n|| doc.workflow_state==\"ISBN\"",
+   "fieldname": "section_break_12",
+   "fieldtype": "Section Break",
+   "label": "Design"
+  },
+  {
+   "fetch_from": "author.author_group",
+   "fieldname": "author_group",
+   "fieldtype": "Data",
+   "label": "Author Group",
+   "read_only": 1
+  },
+  {
+   "fieldname": "contract_type",
+   "fieldtype": "Link",
+   "label": "Contract ",
+   "options": "Contracting"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Argument",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "approval_section",
+   "fieldtype": "Section Break",
+   "label": "Approval "
+  },
+  {
+   "fieldname": "publication_cover",
+   "fieldtype": "Attach",
+   "label": "Publication Cover"
+  },
+  {
+   "fieldname": "pulication_cover_2",
+   "fieldtype": "Attach",
+   "label": "Pulication Cover 2"
+  },
+  {
+   "fieldname": "section_break_25",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_18",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "evaluation",
+   "fieldtype": "Link",
+   "label": "Evaluation",
+   "options": "Evaluation"
+  },
+  {
+   "fieldname": "isbn_section",
+   "fieldtype": "Section Break",
+   "label": "ISBN"
+  },
+  {
+   "depends_on": "eval:doc.workflow_state==\"Proofreading\" \n|| doc.workflow_state==\"Design\"\n|| doc.workflow_state==\"ISBN\"",
+   "fieldname": "isbn",
+   "fieldtype": "Link",
+   "label": "ISBN",
+   "options": "ISBN Form"
+  }
+ ],
+ "modified": "2020-10-18 01:28:59.583504",
+ "modified_by": "Administrator",
+ "module": "Publisher",
+ "name": "Argument",
+ "name_case": "Title Case",
+ "owner": "a.moustafa@alzad.ae",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Publisher",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "show_name_in_global_search": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "author_name",
+ "track_changes": 1
+}

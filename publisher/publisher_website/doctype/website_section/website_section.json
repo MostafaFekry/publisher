@@ -1,0 +1,104 @@
+{
+ "allow_rename": 1,
+ "autoname": "Prompt",
+ "creation": "2020-07-14 00:18:18.346628",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_based_on",
+  "col_01",
+  "show_section_title",
+  "section_cards_section",
+  "section_cards",
+  "no_of_columns",
+  "custom_html_section",
+  "section_html"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_based_on",
+   "fieldtype": "Select",
+   "label": "Section Based On",
+   "options": "Cards\nCustom HTML"
+  },
+  {
+   "fieldname": "col_01",
+   "fieldtype": "Column Break",
+   "label": "Options"
+  },
+  {
+   "default": "1",
+   "fieldname": "show_section_title",
+   "fieldtype": "Check",
+   "label": "Show Section Title"
+  },
+  {
+   "depends_on": "eval:doc.section_based_on === 'Cards'",
+   "fieldname": "section_cards_section",
+   "fieldtype": "Section Break",
+   "label": "Section Cards"
+  },
+  {
+   "fieldname": "section_cards",
+   "fieldtype": "Table",
+   "label": "Section Cards",
+   "options": "Website Section Card"
+  },
+  {
+   "default": "3",
+   "description": "Number of columns for this section. 3 cards will be shown per row if you select 3 columns.",
+   "fieldname": "no_of_columns",
+   "fieldtype": "Select",
+   "label": "Number of Columns",
+   "options": "1\n2\n3\n4\n6"
+  },
+  {
+   "depends_on": "eval:doc.section_based_on === 'Custom HTML'",
+   "fieldname": "custom_html_section",
+   "fieldtype": "Section Break",
+   "label": "Custom HTML"
+  },
+  {
+   "description": "Use this field to render any custom HTML in the section.",
+   "fieldname": "section_html",
+   "fieldtype": "Code",
+   "label": "Section HTML",
+   "options": "HTML"
+  }
+ ],
+ "modified": "2020-10-18 17:58:39.933319",
+ "modified_by": "Administrator",
+ "module": "Publisher Website",
+ "name": "Website Section",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Website Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

@@ -1,0 +1,27 @@
+<!-- post login tools -->
+{% if not only_static %}
+
+	{% if frappe.session.user != 'Guest' %}
+	<li class="logged-in nav-item dropdown" id="website-post-login" data-label="website-post-login" style="display: none">
+		<a class="nav-link text-color-dark text-color-hover-primary" href="#" role="button" id="dropdownUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<i class="icons icon-user text-2"></i> <span class="full-name d-none d-md-inline-flex"></span>
+			<i class="fas fa-angle-down"></i>
+		</a>
+		<div class="dropdown-menu" aria-labelledby="dropdownUser">
+			<a class="dropdown-item text-color-hover-primary text-1" href="/checkout"> <i class="fas fa-shopping-bag"></i> {{ _("Checkout") }}</a>
+			<a class="dropdown-item text-color-hover-primary text-1 switch-to-desk hidden" href="/desk"> <i class="fas fa-tasks"></i> {{ _('Switch To Desk') }}</a>
+		{%- for child in post_login -%}
+			{%- if child.url -%}
+			<a class="dropdown-item text-color-hover-primary text-1" href="{{ child.url | abs_url }}" {{ child.target or '' }} rel="nofollow"> <i class="fas fa-user-lock"></i> {{ child.label }}</a>
+			{%- endif -%}
+		{%- endfor -%}
+		</div>
+	</li>
+	{% endif %}
+
+	{% if not disable_signup %}
+	<li class="btn-login-area nav-item nav-item-anim-icon">
+		<a href="/login" class="nav-link text-color-dark text-color-hover-primary"><i class="icons icon-user text-2"></i>  <span class="d-none d-md-inline-flex">{{ _("Sign in") }}</span></a>
+	</li>
+	{% endif %}
+{% endif %}

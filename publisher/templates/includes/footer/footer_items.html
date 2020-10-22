@@ -1,0 +1,16 @@
+<div class="row">
+{% for page in footer_items %}
+		{% if not page.parent_label %}
+			<div class="col-6 col-lg-3">
+		{%- if page.child_items -%}
+		<h5 class="text-4 text-color-light mb-3 mt-lg-0 mt-4 text-uppercase">{{ _(page.label) }}</h5>
+		{%- for child in page.child_items -%}
+			<p class="mb-1 mx-2"><a href="{{ child.url | abs_url }}"  {% if child.target %}target="_blank"{% endif %} class="text-3 link-hover-style-1 text-color-light"><i class="fas fa-angle-{% if website_languages_request == "ar" -%}left{%- else -%}right{%- endif %}"></i> {{ _(child.label) }}</a></p>
+		{%- endfor -%}
+		{%- else -%}
+		<p class="text-3 mb-3 opacity-7 mt-lg-0 mt-4"><a href="{{ page.url | abs_url }}"  {% if page.target %}target="_blank"{% endif %} class="text-3 link-hover-style-1  opacity-7">{{ _(page.label) }}</a></p>
+		{%- endif -%}
+		</div>
+	{% endif %}
+{% endfor %}
+</div>

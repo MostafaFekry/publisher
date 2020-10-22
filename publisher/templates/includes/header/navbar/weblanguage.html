@@ -1,0 +1,13 @@
+{% if enable_multilanguage_support and display_language_picker_in_top_bar -%}
+<li class="nav-item dropdown nav-item-left-border">
+	<a class="nav-link text-color-default text-color-hover-primary" href="#" role="button" id="dropdownLanguage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		<i class="fas fa-globe text-4 text-color-primary"></i> {{ _("Language") }}
+		<i class="fas fa-angle-down"></i>
+	</a>
+	<div class="dropdown-menu dropdown-menu-arrow-centered min-width-0" aria-labelledby="dropdownLanguage">
+		{%- for page in website_languages_items -%}
+			<a class="dropdown-item" href="/{{ page.language }}/{{ path }}">{{ page.language_name }}</a>
+		{%- endfor %}
+	</div>
+</li>
+{%- endif %}

@@ -1,0 +1,108 @@
+{% extends "templates/web.html" %}
+{% if doc.head_html_details -%}
+{%- block head -%}
+	{{ doc.head_html_details or head_html or "" }}
+{%- endblock -%}
+{%- endif %}
+{% block title %}{{ _(title) }}{% if main_page_title %} | {{ main_page_title  }}{% endif %}{% endblock %}
+{% block page_content %}
+<section class="section section-no-border custom-section-spacement-1 bg-color-light m-0 pt-0">
+	<div class="container">
+		<div class="row text-center">
+			<div class="col">
+				<h2 class="text-uppercase text-color-dark font-weight-bold mb-0 pb-0">{{ _(title or name or "") }}</h2>
+				<div class="divider divider-secondary divider-small divider-small-center mb-4 mt-0">
+					<hr class="mt-2">
+				</div>
+				<p class="custom-text-color-1">{% if website_languages_request == "ar" -%}
+				{{ doc.introduction_ar or doc.introduction or "" }}
+				{%- else -%}
+				{{ doc.introduction or "" }}
+				{%- endif %}</p>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}
+{% block topfooter %}
+{% if items %}
+<section class="section section-no-border  bg-color-grey-scale-1 custom-section-spacement-1 m-0">
+	<div class="container">
+		<div class="row toolbar mb-4 pb-2">
+			<div class="col-md-6">
+				<div class="shop-tab">
+					<div class="list-page">
+						<p>{{ frappe.form_dict.start if frappe.form_dict.start else '1'}} - {% if items|len < page_length %}{{ (items|len + (frappe.form_dict.start|int)) or '0' }}{% else %}{{ (page_length + (frappe.form_dict.start|int or 0)) }}{% endif %} {{ _("of")}} {{ author_items_count }} {{ _("results")}}</p>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="col-md-6 d-flex justify-content-end">
+				<span class='pt-1'>{{ _("Sort By") }}</span>
+				<select id="sorter" class="mx-2 sorter" data-role="sorter">
+					<option {% if frappe.form_dict.sort == 'namease' %}selected="selected"{% endif %} value="namease"> {{ _("Name - A to Z") }} </option>
+					<option {% if frappe.form_dict.sort == 'namedesc' %}selected="selected"{% endif %} value="namedesc"> {{ _("Name - Z to A") }} </option>
+				</select>
+			</div>
+		</div>
+		<div class="row"  id="search-list">
+			{% if items %}
+					{% for i in range(0, page_length) %}
+						{% if items[i] %}
+							{%- set item = items[i] %}
+							{% include "publisher/templates/generators/author_row.html" %}
+						{% endif %}
+					{% endfor %}
+			{% else %}
+			<div class="text-muted">{{ _("No items listed") }}.</div>
+			{% endif %}
+		</div>
+
+		{% if items %}
+			{% set pages_count = (author_items_count/page_length)|round(0, 'ceil')|int %}
+			{% set page_index = 1  %}
+			{% if frappe.form_dict.start and frappe.form_dict.start|int != 0 %}
+				{% set page_index = (frappe.form_dict.start|int/page_length)|int + 1  %}
+			{% endif %}
+			{% set page_start_index = page_index - 3 if page_index >= 3 else 0  %}
+			{% set page_end_index = page_index + 3 if page_index <= pages_count - 3 else pages_count  %}
+		<div class="row toolbarfootor pt-2">
+			<div class="col-12  text-right">
+
+				<p class="list-page  float-right">{{_("Page") }} {{ page_index }} {{_("of") }} {{ pages_count }}</p>
+				{% if author_items_count > page_length %}
+				<ul class="pagination float-right">
+					{% if frappe.form_dict.start|int > 0 %}
+					<li class="page-item"><a class="page-link btn-prev" href="/{{ pathname }}?start={{ frappe.form_dict.start|int - page_length }}{% if frappe.form_dict.sort %}&sort={{frappe.form_dict.sort}}{% endif %}">{{ _("Prev") }}</a></li>
+					{% endif %}
+					{% for n in range(page_start_index+1 ,page_end_index+1) %}
+							<li class="page-item {% if frappe.form_dict.start|int == 0 and (n) == 1 %}active{% endif %}{% if frappe.form_dict.start|int != 0 %}{% if (frappe.form_dict.start|int)/page_length == n-1 %}active{% endif %}{% endif %}"><a class="page-link btn-page"  href="/{{ pathname }}?start={{ (n-1) * page_length }}{% if frappe.form_dict.sort %}&sort={{frappe.form_dict.sort}}{% endif %}">{{ n }}</a></li>
+					{% endfor %}
+					{% if (page_length+frappe.form_dict.start|int) < author_items_count %}
+					<li class="page-item"><a class="page-link btn-next" href="/{{ pathname }}?start={{ frappe.form_dict.start|int + page_length }}{% if frappe.form_dict.sort %}&sort={{frappe.form_dict.sort}}{% endif %}">{{ _("Next") }}</i></a></li>
+					{% endif %}
+				</ul>
+				{% endif %}
+
+			</div>
+		</div>
+
+		{% endif %}
+	</div>
+</section>
+<script>
+	frappe.ready(() => {
+		$('.sorter').change((e) => {
+			const $sort = $(e.target);
+			$sort.prop('disabled', true);
+			const sorter = $sort.val();
+			let query_params = frappe.utils.get_query_params();
+			query_params.sort = sorter;
+			let path = window.location.pathname + '?' + frappe.utils.get_url_from_dict(query_params);
+			window.location.href = path;
+		});
+	});
+</script>
+{% endif %}
+{% endblock %}

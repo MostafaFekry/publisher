@@ -1,0 +1,342 @@
+{% extends "templates/base.html" %}
+{% block title %}{{ _(title) or _("Home") }}{% if main_page_title %} | {{ main_page_title  }}{% else %}| WATER Engineering & Environmental Consultations{% endif %}{% endblock %}
+
+{% block head_include %}
+
+{% endblock %}
+
+{% block content %}
+{% macro render_blog_section() %}
+<section class="section bg-color-grey-scale-1 section-height-3 border-0 m-0">
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<h3 class="mt-0 mb-0 pb-0 font-weight-bold text-uppercase ">{{ _(blog_section_title) or _("Blog")}}</h3>
+				<div class="divider divider-secondary divider-small mb-4 mt-0">
+					<hr class="mt-2">
+				</div>
+				{%- if blog_section_description -%}<p class="lead mb-2">{{ _(blog_section_description) }}</p>{%- endif -%}
+			</div>
+		</div>
+		<div class="row">
+
+
+			{% if blog_items %}
+				{%- if display_blog_as == 'Slider' -%}
+				<div class="owl-carousel owl-theme stage-margin " data-plugin-options="{'responsive': {'0': {'items': 1}, '479': {'items': 2}, '768': {'items': 2}, '979': {'items': {{ _(number_of_columns_of_blog_items or "'2'")}}}, '1199': {'items': {{ _(number_of_columns_of_blog_items or "'3'")}}}}, 'margin': 10, 'loop': false, 'nav': true,  'stagePadding': 40, 'autoHeight': false, 'dots': false}">
+				{%- endif -%}
+			{% for post in blog_items %}
+			<div class="blog-card mt-4 rounded {% if display_blog_as =='Grid' -%}col-md-{{ number_of_columns_of_blog_items or '3'}}{%- endif %}">
+				<div class="card h-100">
+					<div class="card-img-top">
+						{% if post.cover_image %}
+							<img src="{{ post.cover_image }}" alt="{{post.title}} - Cover Image" class='rounded'>
+						{% else %}
+							<div class="default-cover">
+								<span>{{ post.title }}</span>
+							</div>
+						{% endif %}
+					</div>
+					<div class="card-body">
+						<div>
+							<div class="text-muted small text-uppercase">
+								<span>{{ post.blog_category }}</span>
+							</div>
+								<h5 class="mt-1" {{ "style='min-height:36px;'" if number_of_columns_of_blog_items >= 3 and display_blog_as == 'Slider' }} ><span class="text-dark">{{ post.title }}</span></h5>
+								<p class="post-description text-muted" {{ "style='min-height:105px;'" if number_of_columns_of_blog_items >= 3 and display_blog_as == 'Slider' }}>{{ post.blog_intro }}</p>
+						</div>
+						<div class="blog-card-footer">
+							<div class="text-muted">
+								<a href="/blog?blogger={{ post.blogger }}">{{ post.blogger or "" }}</a>
+								<div class="small">
+									{{ frappe.format_date(post.published_on) }}
+								</div>
+							</div>
+						</div>
+					</div>
+					<a class="stretched-link" href="/{{ post.route }}"></a>
+				</div>
+			</div>
+			{% endfor%}
+			{%- if display_blog_as =='Slider' -%}</div>{%- endif -%}
+			{% endif%}
+		</div>
+	</div>
+</section>
+{% endmacro %}
+{% macro render_author_section() %}
+<section class="section bg-color-light border-0 m-0">
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<h3 class="mt-0 mb-0 pb-0 font-weight-bold text-uppercase ">{{ _(author_section_title) }}</h3>
+				<div class="divider divider-secondary divider-small mb-4 mt-0">
+					<hr class="mt-2">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			{% if author_doc.image %}
+			<div class='{{ "col-md-4 col-lg-2" if author_books else "col-md-4 col-lg-4" }} mb-4 mb-lg-0 text-center text-lg-left'>
+				<a href="{{ author_doc.route|abs_url }}" class="popup-with-zoom-anim text-decoration-none">
+					<span class="thumb-info custom-thumb-info-1 thumb-info-no-borders mx-4">
+						<span class="thumb-info-wrapper p-0">
+							<img src="{{ author_doc.image }}" class="img-fluid" alt="">
+						</span>
+					</span>
+				</a>
+			</div>
+			{% endif %}
+			<div class='{% if author_doc.image and author_books %}col-md-8 col-lg-4{% elif not author_doc.image and author_books %}col-md-12{% elif  author_doc.image and not author_books %}col-md-8 col-lg-8  {% elif  not author_doc.image and not author_books %}col-md-12 col-lg-12 {% endif %} mb-4 mb-lg-0 text-center text-lg-left'>
+
+					<h4 class="text-6 font-weight-semibold line-height-5 ">{{ author_doc.author_name }}</h4>
+					<p>{{_(author_doc.description)|truncate(500)}}<br><a href="{{ author_doc.route|abs_url }}">{{ _("Read More")}} <i class="position-relative top-1 fas fa-long-arrow-alt-{% if website_languages_request == "ar" %}left {% else %}right {% endif %}"></i></a></p>
+					{% if author_doc.author_social_media%}
+					<ul class="social-icons social-icons-clean social-icons-big">
+						{% for author_social_media in author_doc.author_social_media %}
+						<li class="{{ author_social_media.social_class }}">
+							<a href="{{ author_social_media.social_url }}" target="{{ author_social_media.social_url_target }}" title="{{ author_social_media.social_name }}" class="border border-color-grey">
+								<i class="{{ author_social_media.social_icon }} text-4"></i>
+							</a>
+						</li>
+						{% endfor %}
+					</ul>
+					{% endif %}
+				</div>
+				{% if author_books %}
+				<div class="col-md-12 col-lg-6 mb-4 mb-lg-0 text-center text-lg-left">
+					<div class="row justify-content-center">
+						<div class="owl-carousel owl-theme stage-margin dots-morphing" data-plugin-options="{'responsive': {'0': {'items': 2}, '479': {'items': 2}, '768': {'items': 4}, '979': {'items': 2}, '1199': {'items': 2}}, 'margin': 10, 'autoplay': true, 'autoplayTimeout': 3000, 'nav': true,  'stagePadding': 40}">
+							{% for author_book in author_books %}
+							<div>
+								<div class="thumb-info thumb-info-hide-wrapper-bg custom-thumb-info-style-1 mb-3">
+									<div class="thumb-info-wrapper">
+										<a href='{{ author_book.route |abs_url }}'><img src='{{ author_book.website_image or author_book.image or ""}}' class="img-fluid" alt=""></a>
+									</div>
+								</div>
+							</div>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+				{% endif %}
+		</div>
+	</div>
+</section>
+{% endmacro %}
+{% macro render_item_group_section(section) %}
+	<div class="container">
+		<!--<div class="row">
+			<div class="col">
+				<h3 class="mt-0 mb-0 pb-0 font-weight-bold text-uppercase ">{{ _(section.item_group_name) }}</h3>
+				<div class="divider divider-secondary divider-small {% if section.section_theme_details.center_aligned %} divider-small-center{% endif %} mb-4 mt-0">
+					<hr class="mt-2">
+				</div>
+			</div>
+		</div>-->
+
+		<div class="row">
+      <div class="col">
+        <h4 class="font-weight-semibold text-4 mb-3 text-uppercase text-color-dark">{{ _(section.item_group_name) }}</h4>
+				<div class="divider divider-secondary divider-small {% if section.section_theme_details.center_aligned %} divider-small-center{% endif %} mb-4 mt-0">
+					<hr class="mt-2">
+				</div>
+        <div class="products row">
+          {% if section.display_item_group_as == 'Slider' %}<div class="col">
+						<div class="owl-carousel owl-theme stage-margin " data-plugin-options="{'responsive': {'0': {'items': 2}, '479': {'items': 3}, '768': {'items': 4}, '979': {'items': {{ _(section.number_of_columns_item or "6")}}}, '1199': {'items': {{ _(section.number_of_columns_item or "6")}}}}, 'margin': 10, 'loop': false, 'nav': true,  'stagePadding': 40, 'autoHeight': false, 'dots': false}">{% endif %}
+
+							{% for item in section.product_items %}
+							{% if section.display_item_group_as == 'Grid' %}<div class="col-6 col-md-{{ section.number_of_columns_item or '3' }} mb-4 px-2">{% endif %}
+              <div class="product mb-0 rounded thumb-info thumb-info-hide-wrapper-bg " style="background: #fff; height: 100% !important; padding: 5px;">
+                <div class="product-thumb-info border-0 mb-3">
+
+
+									<div class="product-thumb-info-badges-wrapper">
+										<span class="badge badge-ecommerce badge-success">{{ _("New") }}</span>
+										{% if item.product_info.price.price_list_rate %}<span class="badge badge-ecommerce badge-danger">{{ _(item.product_info.price.currency or "") }} {{ item.product_info.price.price_list_rate }}</span>{% endif %}
+                  </div>
+
+                  <!--<div class="addtocart-btn-wrapper">
+                    <a href="shop-cart.html" class="text-decoration-none addtocart-btn" data-tooltip data-original-title="Add to Cart">
+                      <i class="icons icon-bag"></i>
+                    </a>
+                  </div>
+
+                  <a href="ajax/shop-product-quick-view.html" class="quick-view text-uppercase font-weight-semibold text-2">
+                    QUICK VIEW
+                  </a>-->
+                  <a href="{{ (item.route)|abs_url }}">
+                    <div class="product-thumb-info-image thumb-info-wrapper" style="padding-top: 150%;transform: none; object-fit: fill; background: #fff;display: flex;">
+                      <img alt="" src="{{ (item.website_image) or (item.image) }}" class="img-fluid" style="position: absolute; top: 0;">
+
+                    </div>
+                  </a>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <div>
+
+                    <h3 class="text-3-4 font-weight-normal font-alternative text-transform-none line-height-3 mb-1" style="min-height: 40px;"><a href="{{ (item.route)|abs_url }}" class="text-color-primary text-color-hover-primary">{{ _(item.item_name) }}</a></h3>
+
+										<a href="#" class="d-block text-uppercase text-decoration-none text-color-default text-color-hover-primary line-height-1 text-0 mb-0">{{ _(item.item_group)}}</a>
+                  </div>
+                  <!--<a href="#" class="text-decoration-none text-color-default text-color-hover-dark text-4"><i class="far fa-heart"></i></a>-->
+                </div>
+                <div title="Rated 5 out of 5">
+                  <input type="text" class="d-none" value="5" title="" data-plugin-star-rating data-plugin-options="{'displayOnly': true, 'color': 'secondary', 'size':'xs'}">
+                </div>
+								<p class="price text-5 mb-3">
+										{% if item.product_info.price.price_list_rate %}<span class="sale text-color-dark font-weight-medium">{{ _(item.product_info.price.currency or "") }} {{ item.product_info.price.price_list_rate }}</span>{% endif %}
+
+                </p>
+
+              </div>
+							{% if section.display_item_group_as == 'Grid' %}</div>{% endif %}
+							{% endfor %}
+            {% if section.display_item_group_as == 'Slider' %}</div>
+          </div>{% endif %}
+        </div>
+      </div>
+    </div>
+
+		<div class="row">
+			<div class="col text-center">
+				<a href="{{ (section.item_group_route)|abs_url }}" class="d-inline-flex align-items-center btn btn-primary text-color-light font-weight-bold px-4 btn-py-2 text-1 rounded">{{ _("View All")}}</a>
+			</div>
+		</div>
+	</div>
+{% endmacro %}
+
+{% macro render_website_section_section(section) %}
+{% for section_details in section.website_section_details %}
+	<div class="container">
+		{% if section_details.show_section_title -%}
+		<div class="row">
+			<div class="col">
+				<h3 class="mt-0 mb-0 pb-0 font-weight-bold text-uppercase ">{{ _(section_details.name) }}</h3>
+				<div class="divider divider-secondary divider-small {% if section.section_theme_details.center_aligned %} divider-small-center{% endif %} mb-4 mt-0">
+					<hr class="mt-2">
+				</div>
+			</div>
+		</div>
+		{%- endif %}
+		{% if section_details.section_based_on == 'Custom HTML' and section_details.section_html %}
+		{{ section_details.section_html }}
+		{% elif section_details.section_based_on == 'Cards' %}
+		<div class="row">
+			<div class="col">
+				<div class="row align-items-center">
+					{% for card in section_details.section_cards %}
+					<div class="col-md-{{ section_details.column_value }} mb-4">
+						{% if card.image and (card.image_type == 'Full photo' or card.image_type == 'Background') %}
+						<a href='{{ (card.route)|abs_url or "#" }}' class="popup-with-zoom-anim text-decoration-none">
+							<span class="thumb-info custom-thumb-info-1 thumb-info-no-borders">
+								<span class="thumb-info-wrapper p-0">
+									<img src="{{ (card.image) }}" class="img-fluid rounded" alt="">
+								</span>
+								{% if card.show_card_title %}
+								<span class="thumb-info-caption bg-color-light">
+									<span class="thumb-info-caption-text">
+										<span class="thumb-info-caption-title text-uppercase text-color-dark font-weight-bold">{{ _(card.title) }}</span>
+										{% if card.subtitle %}<p>{{ _(card.subtitle) }}</p>{%- endif %}
+										{% if card.content %}<p>{{ _(card.content) }}</p>{%- endif %}
+									</span>
+								</span>
+								{%- endif %}
+							</span>
+						</a>
+						{% elif card.icon and card.image_type == 'Icon' %}
+							{% if card.text_center_aligned %}
+							<a href='{{ (card.route)|abs_url or "#" }}' class="popup-with-zoom-anim text-decoration-none">
+								<span class="thumb-info custom-thumb-info-1 thumb-info-no-borders text-center">
+									<span class="thumb-info-wrapper p-0 ">
+										<i class="{{ (card.icon) }} text-14 pt-4"></i>
+									</span>
+									{% if card.show_card_title %}
+									<span class="thumb-info-caption bg-color-light">
+										<span class="thumb-info-caption-text">
+											<h4 class="thumb-info-caption-title  text-uppercase text-color-dark font-weight-bold">{{ _(card.title) }}</h4>
+											{% if card.subtitle %}<p class="font-weight-semibold text-4 mb-4">{{ _(card.subtitle) }}</p>{%- endif %}
+											{% if card.content %}<p>{{ _(card.content) }}</p>{%- endif %}
+										</span>
+									</span>
+									{%- endif %}
+								</span>
+							</a>
+							{% else %}
+									<div class="feature-box feature-box-style-2">
+										{% if card.icon -%}
+										<div class="feature-box-icon w-auto h-auto pt-0">
+											<i class="{{ (card.icon) }} text-12 py-4"></i>
+										</div>
+										{%- endif %}
+										<div class="feature-box-info">
+											<h4 class="text-uppercase  font-weight-bold pt-1 mb-0">{{ _(card.title) }}</h4>
+											{% if card.subtitle %}<p class="custom-text-color-4 text-4 mb-4">{{ _(card.subtitle) }}</p>{%- endif %}
+										</div>
+									</div>
+									{% if card.content %}<p class="custom-text-color-4">{{ _(card.content) }}</p>{%- endif %}
+									{% if card.route %}<p class="font-weight-bold mb-0 pb-4">
+										<a href="{{ (card.route)|abs_url }}" class="link-hover-style-1 text-color-primary text-uppercase">{{ _("Read More")}}+</a>
+									</p>{%- endif %}
+							{%- endif %}
+						{% else %}
+						<h4 class="text-6 font-weight-bold line-height-5 ">{{ _(card.title) }}</h4>
+						{% if card.content %}<p>{{ _(card.content) }}</p>{%- endif %}
+						{% if card.route %}<a href="{{ (card.route)|abs_url }}" class="d-inline-flex align-items-center btn btn-primary text-color-light font-weight-bold px-4 btn-py-2 text-1 rounded">{{ _("Read More") }} <i class="fa fa-arrow-{% if website_languages_request == "ar" %}left mr-2 pr-1{% else %}right ml-2 pl-1{% endif %} text-3"></i></a>{%- endif %}
+						{%- endif %}
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		{%- endif %}
+	</div>
+	{% endfor %}
+{% endmacro %}
+
+<div role="main" class="main shop">
+	{% if slideshow -%}
+		{% include "templates/includes/home_slideshow.html" %}
+	{%- endif %}
+
+
+{% if homepage_section_item %}
+	{% for section in homepage_section_item %}
+	{% if section.website_section_details or section.product_items %}
+	<section class="section {% if section.section_theme_details %} {% if section.section_theme_details.class_name %}{{ section.section_theme_details.class_name }}{% endif %}{% if section.section_theme_details.removing_top_border %} border-0{% endif %}{% if section.section_theme_details.removing_margin_top_and_bottom %} my-0{% endif %}{% if section.section_theme_details.with_divider %} section-with-divider{% endif %}{% if section.section_theme_details.center_aligned %} section-center{% endif %}{% if section.section_theme_details.custom_background == 'Image' and section.section_theme_details.background_image %} parallax section-parallax{% endif %}{% if section.section_theme_details.custom_background == 'Video' and section.section_theme_details.background_video %} video section-video{% endif %}{% else %}bg-color-light border-0 my-0{% endif %}" {% if section.section_theme_details %}{% if section.section_theme_details.custom_background == 'Image' and section.section_theme_details.background_image %} data-plugin-parallax data-plugin-options="{'speed': 1.5}" data-image-src="{{ section.section_theme_details.background_image }}"{% endif %}{% endif %}
+	{% if section.section_theme_details %}{% if section.section_theme_details.custom_background == 'Video' and section.section_theme_details.background_video %} data-video-path="{{ section.section_theme_details.background_video }}" data-plugin-video-background data-plugin-options="{'posterType': 'jpg', 'position': '50% 50%'}"{% endif %}{% endif %}>
+		{% if section.section_theme_details %}{% if section.section_theme_details.with_divider %}
+		<div class="divider divider-solid divider-style-4">
+			<i class="fas fa-chevron-down"></i>
+		</div>
+		{% endif %}{% endif %}
+		{% if section.section_type == "Website Section" %}
+		{{ render_website_section_section(section) }}
+		{% endif %}
+		{% if section.section_type == "Item Group" %}
+		{{ render_item_group_section(section) }}
+		{% endif %}
+	</section>
+	{% endif %}
+	{% if section.idx == author_display_after_section_item_row_number and author_section_title and author and author_doc %}
+	{{ render_author_section() }}
+	{% endif %}
+	{% if section.idx == display_blog_after_section_item_row_number and allow_blog_section and blog_items %}
+		{{ render_blog_section() }}
+	{% endif %}
+	{% endfor %}
+{% endif %}
+
+
+
+{% if author_section_title and author and author_doc and author_display_after_section_item_row_number == 0 %}
+{{ render_author_section() }}
+{% endif %}
+
+
+{% if allow_blog_section and blog_items and display_blog_after_section_item_row_number == 0 %}
+	{{ render_blog_section() }}
+{% endif %}
+
+</div>
+{% endblock %}

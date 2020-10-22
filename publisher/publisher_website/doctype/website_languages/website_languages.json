@@ -1,0 +1,198 @@
+{
+ "autoname": "field:language",
+ "creation": "2020-06-13 13:55:26.430454",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_01",
+  "language",
+  "language_name",
+  "language_flag",
+  "column_break_5",
+  "language_flag_image",
+  "header_section",
+  "main_page_title",
+  "top_header_message",
+  "column_break_03",
+  "allow_top_bar_notice",
+  "top_bar_notice",
+  "footer_section",
+  "allow_display_contact_on_footer",
+  "footer_company_information_title",
+  "footer_address_title",
+  "footer_address_details",
+  "footer_tel_title",
+  "footer_tel_details",
+  "footer_email_title",
+  "footer_email_details",
+  "column_break_15",
+  "footer_social_media_title",
+  "footer_newsletter_title",
+  "footer_newsletter_details",
+  "footer_newsletter_input_title",
+  "footer_newsletter_send_button_title",
+  "copyright"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_01",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "language",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Site Language",
+   "options": "Language",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fetch_from": "language.language_name",
+   "fieldname": "language_name",
+   "fieldtype": "Read Only",
+   "in_list_view": 1,
+   "label": "Language Name"
+  },
+  {
+   "fetch_from": "language.flag",
+   "fieldname": "language_flag",
+   "fieldtype": "Read Only",
+   "in_list_view": 1,
+   "label": "Language Flag",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "header_section",
+   "fieldtype": "Section Break",
+   "label": "Header"
+  },
+  {
+   "fieldname": "main_page_title",
+   "fieldtype": "Data",
+   "label": "Main Page Title"
+  },
+  {
+   "fieldname": "footer_section",
+   "fieldtype": "Section Break",
+   "label": "Footer"
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "copyright",
+   "fieldtype": "Data",
+   "label": "Copyright"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "language_flag_image",
+   "fieldtype": "Attach Image",
+   "label": "Language Flag Image",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "footer_company_information_title",
+   "fieldtype": "Data",
+   "label": "Company Information Title"
+  },
+  {
+   "fieldname": "footer_address_title",
+   "fieldtype": "Data",
+   "label": "Address Title"
+  },
+  {
+   "fieldname": "footer_address_details",
+   "fieldtype": "Data",
+   "label": "Address Details"
+  },
+  {
+   "fieldname": "footer_tel_title",
+   "fieldtype": "Data",
+   "label": "Tel Title"
+  },
+  {
+   "fieldname": "footer_tel_details",
+   "fieldtype": "Data",
+   "label": "Tel details"
+  },
+  {
+   "fieldname": "footer_email_title",
+   "fieldtype": "Data",
+   "label": "Email Title"
+  },
+  {
+   "fieldname": "footer_email_details",
+   "fieldtype": "Data",
+   "label": "Email Details"
+  },
+  {
+   "fieldname": "footer_newsletter_title",
+   "fieldtype": "Data",
+   "label": "Newsletter Title"
+  },
+  {
+   "fieldname": "footer_newsletter_details",
+   "fieldtype": "Data",
+   "label": "Newsletter Details"
+  },
+  {
+   "fieldname": "footer_newsletter_input_title",
+   "fieldtype": "Data",
+   "label": "Newsletter Input Title"
+  },
+  {
+   "fieldname": "footer_newsletter_send_button_title",
+   "fieldtype": "Data",
+   "label": "Newsletter Send Button Title"
+  },
+  {
+   "fieldname": "footer_social_media_title",
+   "fieldtype": "Data",
+   "label": "Social Media Title"
+  },
+  {
+   "fieldname": "top_header_message",
+   "fieldtype": "Small Text",
+   "label": "Top Header Message"
+  },
+  {
+   "fieldname": "column_break_03",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "allow_top_bar_notice",
+   "fieldtype": "Check",
+   "label": "Allow Top bar Notice "
+  },
+  {
+   "fieldname": "top_bar_notice",
+   "fieldtype": "Code",
+   "label": "Top bar Notice"
+  },
+  {
+   "default": "0",
+   "fieldname": "allow_display_contact_on_footer",
+   "fieldtype": "Check",
+   "label": "Allow Display Contact on Footer"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-10-20 05:57:31.569289",
+ "modified_by": "Administrator",
+ "module": "Publisher Website",
+ "name": "Website Languages",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

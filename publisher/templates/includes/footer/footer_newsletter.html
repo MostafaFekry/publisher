@@ -1,0 +1,45 @@
+    <!-- block-newsletter-2-start -->
+						<div class="{% if website_social_media_item%}col-lg-4{% else %}col-md-6{% endif %} text-lg-left">
+							<h5 class="text-4 text-color-light mb-3 text-uppercase">{{ _(footer_newsletter_title) or _("Subscribe Newsletter")}}</h5>
+							{% if footer_newsletter_details -%}<p class="text-3  text-color-light opacity-8 mb-0">{{ _(footer_newsletter_details)}}</p>{% endif %}
+						</div>
+						<div class="{% if website_social_media_item%}col-lg-8{% else %}col-md-6{% endif %} text-center text-lg-left px-4 mt-1 mt-lg-3">
+							<div class="pt-1 pt-lg-3 mt-1">
+								<form id="newsletterForm" action="php/newsletter-subscribe.php" method="POST" class="mw-100">
+									<div class="input-group input-group-rounded">
+										<input class="form-control form-control-sm bg-light px-4 text-3" id="footer-subscribe-email" placeholder="{{ _(footer_newsletter_input_title) or _('Your email address...')}}" aria-label="{{ _(footer_newsletter_input_title) or _('Your email address...')}}" aria-describedby="footer-subscribe-button" type="text">
+										<span class="input-group-append">
+											<button class="btn btn-dark opacity-8 text-color-light text-2 py-3 px-4 text-uppercase" id="footer-subscribe-button" type="button"><strong>{{ _(footer_newsletter_send_button_title) or _("Subscribe!")}}</strong></button>
+										</span>
+									</div>
+								</form>
+							</div>
+						</div>
+    <!-- block-newsletter-2-end -->
+							<script>
+							frappe.ready(function() {
+								$("#footer-subscribe-button").click(function() {
+
+									if($("#footer-subscribe-email").val() && validate_email($("#footer-subscribe-email").val())) {
+										$("#footer-subscribe-email").attr('disabled', true);
+										$("#footer-subscribe-button").html("Sending...")
+											.attr("disabled", true);
+										erpnext.subscribe_to_newsletter({
+											email: $("#footer-subscribe-email").val(),
+											callback: function(r) {
+												if(!r.exc) {
+													$("#footer-subscribe-button").html(__("Added"))
+														.attr("disabled", true);
+												} else {
+													$("#footer-subscribe-button").html(__("Error: Not a valid id?"))
+														.addClass("btn-danger").attr("disabled", false);
+													$("#footer-subscribe-email").val("").attr('disabled', false);
+												}
+											}
+										});
+									}
+									else
+										frappe.msgprint(frappe._("Please enter valid email address"))
+								});
+							});
+							</script>

@@ -1,0 +1,45 @@
+<div class="web-sidebar">
+	<div class="sidebar-items">
+		<ul class="nav nav-list flex-column mt-2 mb-5 p-relative list-unstyled">
+			{% if sidebar_title %}
+			<li class="title">
+				{{ sidebar_title }}
+			</li>
+			{% endif %}
+			{% for item in sidebar_items -%}
+			<li class="nav-item sidebar-item ">
+				{% if item.type != 'input' %}
+					<a href="{{ item.route }}" class="nav-link bg-transparent {{ 'nav-link bg-transparent active' if pathname==item.route else 'nav-link bg-transparent ' }}"
+						{% if item.target %}target="{{ item.target }}"{% endif %}>
+						{{ _(item.title or item.label) }}
+					</a>
+				{% else %}
+					<form action='{{ item.route }}' class="mr-3">
+						<input name='q' class='form-control' type='text' style="outline: none"
+							placeholder="{{ _(item.title or item.label) }}">
+					</form>
+				{% endif %}
+			</li>
+			{%- endfor %}
+			{% if frappe.user != 'Guest' %}
+			<li class="nav-item sidebar-item">
+				<a href="/me" class="nav-link bg-transparent">{{ _("My Account") }}</a>
+			</li>
+			{% endif %}
+		</ul>
+	</div>
+</div>
+
+<script>
+frappe.ready(function() {
+	$('.sidebar-item a').each(function(index) {
+        const active_class = 'nav-link bg-transparent active'
+        const non_active_class = 'nav-link bg-transparent'
+            if(this.href.trim() == window.location) {
+                $(this).removeClass(non_active_class).addClass(active_class);
+            } else {
+                $(this).removeClass(active_class).addClass(non_active_class);
+            }
+	    });
+});
+</script>

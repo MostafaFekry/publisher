@@ -1,0 +1,84 @@
+{
+ "creation": "2020-06-29 21:28:26.099726",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "title",
+  "data_from",
+  "data_to",
+  "icon",
+  "column_break_4",
+  "show_plus",
+  "show_before",
+  "show_after"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Title",
+   "reqd": 1,
+   "translatable": 1
+  },
+  {
+   "fieldname": "data_to",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Data To",
+   "reqd": 1
+  },
+  {
+   "description": "&lt;i class=\"fas fa-book\"&gt;&lt;/i&gt;",
+   "fieldname": "icon",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Icon"
+  },
+  {
+   "default": "0",
+   "fieldname": "show_plus",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Show + "
+  },
+  {
+   "description": "As $ Currency",
+   "fieldname": "show_before",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Show Before",
+   "translatable": 1
+  },
+  {
+   "description": "As % Percent",
+   "fieldname": "show_after",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Show After"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "data_from",
+   "fieldtype": "Int",
+   "label": "Data From",
+   "reqd": 1
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-10-20 12:20:36.868915",
+ "modified_by": "Administrator",
+ "module": "Publisher Website",
+ "name": "About Us Counters Items",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

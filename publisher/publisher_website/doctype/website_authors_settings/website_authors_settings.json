@@ -1,0 +1,125 @@
+{
+ "creation": "2020-07-16 15:03:39.859409",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "help",
+  "title",
+  "introduction",
+  "introduction_ar",
+  "section_01",
+  "authors_per_page",
+  "col_01",
+  "no_of_columns",
+  "section_02",
+  "author_publication_title",
+  "display_item_as",
+  "no_of_items_columns"
+ ],
+ "fields": [
+  {
+   "fieldname": "help",
+   "fieldtype": "HTML",
+   "label": "Help",
+   "options": "<div class=\"alert\">Link for Authors Page is \"/authors\"</div>"
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "translatable": 1
+  },
+  {
+   "fieldname": "introduction",
+   "fieldtype": "Text Editor",
+   "label": "Introduction (En)"
+  },
+  {
+   "fieldname": "introduction_ar",
+   "fieldtype": "Text Editor",
+   "label": "Introduction (Ar)"
+  },
+  {
+   "fieldname": "section_01",
+   "fieldtype": "Section Break",
+   "label": "Page Settings"
+  },
+  {
+   "default": "10",
+   "fieldname": "authors_per_page",
+   "fieldtype": "Int",
+   "label": "Authors Per Page"
+  },
+  {
+   "fieldname": "col_01",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "3",
+   "description": "Number of columns for this section. 3 cards will be shown per row if you select 3 columns.",
+   "fieldname": "no_of_columns",
+   "fieldtype": "Select",
+   "label": "Number of Columns",
+   "options": "1\n2\n3\n4\n6"
+  },
+  {
+   "fieldname": "section_02",
+   "fieldtype": "Section Break",
+   "label": "Author Publication"
+  },
+  {
+   "fieldname": "author_publication_title",
+   "fieldtype": "Data",
+   "label": "Author Publication Title",
+   "translatable": 1
+  },
+  {
+   "default": "Grid",
+   "fieldname": "display_item_as",
+   "fieldtype": "Select",
+   "label": "Display Items as",
+   "options": "Grid\nList"
+  },
+  {
+   "default": "4",
+   "description": "Number of columns for this section. 3 cards will be shown per row if you select 3 columns.",
+   "fieldname": "no_of_items_columns",
+   "fieldtype": "Select",
+   "label": "Number of Columns",
+   "options": "1\n2\n3\n4\n6"
+  }
+ ],
+ "issingle": 1,
+ "modified": "2020-10-18 01:33:58.651801",
+ "modified_by": "Administrator",
+ "module": "Publisher Website",
+ "name": "Website Authors Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Website Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

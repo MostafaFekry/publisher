@@ -1,0 +1,104 @@
+{
+ "creation": "2020-07-14 03:55:17.144142",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_type",
+  "col_01",
+  "section_theme",
+  "section_01",
+  "website_section",
+  "section_02",
+  "item_group_name",
+  "col_02",
+  "display_item_group_as",
+  "number_of_columns_item",
+  "max_number_to_display_item_group"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Section Type",
+   "options": "\nWebsite Section\nItem Group",
+   "reqd": 1
+  },
+  {
+   "fieldname": "col_01",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_theme",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Section Theme",
+   "options": "Website Section Theme",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.section_type === 'Website Section'",
+   "fieldname": "section_01",
+   "fieldtype": "Section Break",
+   "label": "Website Section"
+  },
+  {
+   "fieldname": "website_section",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Website Section",
+   "options": "Website Section",
+   "unique": 1
+  },
+  {
+   "depends_on": "eval:doc.section_type === 'Item Group'",
+   "fieldname": "section_02",
+   "fieldtype": "Section Break",
+   "label": "Item Group"
+  },
+  {
+   "fieldname": "item_group_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Group Name",
+   "options": "Item Group",
+   "unique": 1
+  },
+  {
+   "fieldname": "col_02",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Slider",
+   "fieldname": "display_item_group_as",
+   "fieldtype": "Select",
+   "label": "Display Item Group As",
+   "options": "Slider\nGrid"
+  },
+  {
+   "default": "6",
+   "description": "Number of columns for item group section. 6 cards will be shown per slider if not set.",
+   "fieldname": "number_of_columns_item",
+   "fieldtype": "Int",
+   "label": "Number of Columns"
+  },
+  {
+   "default": "10",
+   "fieldname": "max_number_to_display_item_group",
+   "fieldtype": "Int",
+   "label": "Max number to Display Item Group"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-10-18 01:34:41.955114",
+ "modified_by": "Administrator",
+ "module": "Publisher Website",
+ "name": "Website Homepage Section Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

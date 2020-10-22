@@ -1,0 +1,142 @@
+{% set ns_top_menu_item = namespace(count=1) %}
+{% macro render_item(item, submenu=False, parent=False, order=1) %}
+{%- if item.child_items -%}
+	{%- if parent -%}
+	<li class="dropdown order-{{ order }}"><a class="dropdown-item dropdown-toggle{% if (item.url or '')|abs_url == '/'+path %} active{% endif %}" href="#" {{ item.target or ''}}>{{ _(item.label) }}</a>
+	<ul class="dropdown-menu">
+		{%- for child in item.child_items -%}
+			{{ render_item(child, True) }}
+		{%- endfor -%}
+	</ul>
+	</li>
+	{%- else -%}
+	<li class="dropdown-submenu">
+		<a class="dropdown-item {% if (item.url or '')|abs_url == '/'+path %} active{% endif %}" href="#">{{ _(item.label) }}</a>
+		<ul class="dropdown-menu">
+			{%- for child in item.child_items -%}
+				{{ render_item(child, True) }}
+			{%- endfor -%}
+		</ul>
+	</li>
+	{%- endif -%}
+{%- else -%}
+	{%- if parent -%}
+		{%- if item.label == website_top_bar_item_group -%}
+			{%- if sidebarshow_item_group -%}
+				{%- if website_top_bar_item_group_design == "dropdown-submenu" -%}
+				<li class="dropdown order-{{ order }}"><a class="dropdown-item dropdown-toggle{% if (item.url or '')|abs_url == '/'+path %} active{% endif %}" href="#" {{ item.target or ''}}>{{ _(item.label) }}</a>
+				<ul class="dropdown-menu">
+					{{ render_item_group_submenu(sidebarshow_item_group, website_top_bar_item_group) }}
+				</ul>
+				</li>
+				{%- else -%}
+				<li class="dropdown dropdown-mega  order-{{ order }}">
+					<a class="dropdown-item dropdown-toggle {% if (item.url or '')|abs_url == '/'+path %} active{% endif %}" href="#">
+						{{ _(item.label) }}
+					</a>
+					<ul class="dropdown-menu">
+						<li>
+							<div class="dropdown-mega-content">
+								<div class="row">
+									{{ render_item_group(sidebarshow_item_group, website_top_bar_item_group) }}
+								</div>
+							</div>
+						</li>
+					</ul>
+				</li>
+				{%- endif -%}
+			{%- else -%}
+			<li class="dropdown  order-{{ order }}"><a class="dropdown-item {% if (item.url or '')|abs_url == '/'+path %} active{% endif %}" href="{{ (item.url or '')|abs_url }}" {{ item.target or ''}}>{{ _(item.label) }}</a></li>
+			{%- endif -%}
+		{%- else -%}
+		<li class="dropdown  order-{{ order }}"><a class="dropdown-item {% if (item.url or '')|abs_url == '/'+path %} active{% endif %}" href="{{ (item.url or '')|abs_url }}" {{ item.target or ''}}>{{ _(item.label) }}</a></li>
+		{%- endif -%}
+	{%- else -%}
+		{%- if item.label == website_top_bar_item_group -%}
+			{%- if sidebarshow_item_group -%}
+			<li class="dropdown-submenu  order-{{ order }}">
+				<a class="dropdown-item {% if (item.url or '')|abs_url == '/'+path %} active{% endif %}" href="#">{{ _(item.label) }}</a>
+				<ul class="dropdown-menu">
+					{{ render_item_group_submenu(sidebarshow_item_group, website_top_bar_item_group) }}
+				</ul>
+			</li>
+			{%- else -%}
+			<li class="dropdown-submenu  order-{{ order }}"><a class="dropdown-item" href="{{ (item.url or '') | abs_url }}" {{ item.target or '' }}>{{ _(item.label) }}</a></li>
+			{%- endif -%}
+		{%- else -%}
+		<li class="order-{{ order }}"><a class="dropdown-item" href="{{ (item.url or '') | abs_url }}" {{ item.target or '' }}>{{ _(item.label) }}</a></li>
+		{%- endif -%}
+	{%- endif -%}
+{%- endif -%}
+{%- endmacro -%}
+
+{% macro render_item_group_submenu(items, parent) %}
+{% for item in items %}
+	{% if item.parent_item_group == parent -%}
+	{%- set parent_sub = item.item_group_name -%}
+	<li {% for subitem in items %}{% if subitem.parent_item_group == parent_sub %}class="dropdown-submenu"{% endif %}{% endfor %}>
+		<a class="dropdown-item {% if (item.route or '')|abs_url == '/'+path %} active{% endif %}" href="{{ (item.route)|abs_url }}">{{ _(item.item_group_name) }}</a>
+		<ul class="dropdown-menu">
+				{{ render_item_group_submenu(items, parent_sub) }}
+		</ul>
+	</li>
+	{%- endif %}
+{% endfor %}
+
+{%- endmacro -%}
+
+
+
+{% macro render_item_group(items, parent) %}
+{% for item in items %}
+	{% if item.parent_item_group == parent %}
+	{%- set parent_sub = item.item_group_name -%}
+	<div class="col-lg-3">
+
+			<!--<span class="dropdown-mega-sub-title text-color-primary">{{ _(item.item_group_name) }}</span>-->
+		<ul class="dropdown-mega-sub-nav">
+			<li><a class="dropdown-item dropdown-mega-sub-title text-color-primary {% if (item.route or '')|abs_url == '/'+path %} active{% endif %}" href="{{ (item.route)|abs_url }}"><strong>{{ _(item.item_group_name) }}</strong></a></li>
+			{% for itemsub in items %}
+				{% if itemsub.parent_item_group == parent_sub %}
+				{%- set parent_subsub = itemsub.item_group_name -%}
+				<li><a class="dropdown-item {% if (itemsub.route or '')|abs_url == '/'+path %} active{% endif %}" href="{{ (itemsub.route)|abs_url }}">{{ _(itemsub.item_group_name) }}</a></li>
+				{% endif %}
+			{% endfor %}
+		</ul>
+	</div>
+	{% endif %}
+{% endfor %}
+
+{%- endmacro -%}
+<div class="header-nav-main header-nav-main-square header-nav-main-dropdown-no-borders header-nav-main-dropdown-arrow header-nav-main-dropdown-center header-nav-main-dropdown-center-bottom header-nav-main-effect-3 header-nav-main-sub-effect-1">
+	<nav class="collapse header-btn-collapse-nav-custom-margin">
+		<ul class="nav nav-pills flex-column flex-lg-row" id="mainNav">
+			{%- if top_bar_items -%}
+			{%- for item in top_bar_items -%}
+				{%- if not item.parent_label and not item.right and not item.top -%}
+					{{ render_item(item, parent=True, order=ns_top_menu_item.count) }}
+					{% set ns_top_menu_item.count = ns_top_menu_item.count + 1 %}
+				{%- endif -%}
+			{%- endfor -%}
+			<li class="align-items-center d-none d-lg-flex order-{{ ns_top_menu_item.count }} px-5 mx-2">
+				<span class="header-logo">
+					<a href="{{ url_prefix }}{{ home_page or "/" }}" class="w-100 {% if not ns_top_menu_item.count == 1 -%}text-center{%- endif %}">
+						{{ brand_html or """<img alt='Publisher' width='275' height='48' data-sticky-width='220' data-sticky-height='32' data-sticky-top='0' src='/assets/publisher/img/logo-publisher.png'>"""  or (frappe.get_hooks("brand_html") or [_("Home")])[0] }}
+					</a>
+				</span>
+			</li>
+			{%- for item in top_bar_items -%}
+				{%- if not item.parent_label and item.right and not item.top -%}
+					{% set ns_top_menu_item.count = ns_top_menu_item.count + 1 %}
+					{{ render_item(item, parent=True, order=ns_top_menu_item.count) }}
+				{%- endif -%}
+			{%- endfor -%}
+			{%- endif -%}
+
+		</ul>
+	</nav>
+</div>
+<button class="btn header-btn-collapse-nav" data-toggle="collapse" data-target=".header-nav-main nav">
+	<i class="fas fa-bars"></i>
+</button>
+		<!-- mobile-menu-area-end -->

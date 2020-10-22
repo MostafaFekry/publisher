@@ -1,0 +1,211 @@
+<div class="row item-website-specification">
+	<div class="col-md-12">
+		<table class="table m-0">
+			<tbody>
+				<tr>
+					<th class="border-top-0" colspan="2">
+						{{ item_name }}
+					</th>
+				</tr>
+				{% if author %}
+				<tr>
+					<th>
+						{{_('Author By')}}
+					</th>
+					<td>
+						{% if author_route %}<a rel="tag" href="{{ author_route | abs_url }}">{{ _(author) }}</a>{% else %}{{ _(author) }}{% endif %}. <a href='/all-books?field_filters=%7B"author"%3A%5B"{{author_dname}}"%5D%7D' ><i class="fas fa-search text-color-secondary"></i></a>
+					</td>
+				</tr>
+				{% endif %}
+				{% if isbn %}
+				<tr>
+					<th>
+						{{_('ISBN')}}
+					</th>
+					<td>
+						{{_(isbn)}}
+					</td>
+				</tr>
+				{% endif %}
+				{% if binding %}
+				<tr>
+					<th>
+						{{_('Binding')}}
+					</th>
+					<td>
+						<a href='/all-books?field_filters=%7B"binding"%3A%5B"{{binding}}"%5D%7D' >{{_(binding)}}</a>
+					</td>
+				</tr>
+				{% endif %}
+				{% if language %}
+				<tr>
+					<th>
+						{{_('Language')}}
+					</th>
+					<td>
+						<a href='/all-books?field_filters=%7B"language"%3A%5B"{{book_language}}"%5D%7D' >{{_(book_language)}}</a>
+					</td>
+				</tr>
+				{% endif %}
+				{% if publication_date %}
+				<tr>
+					<th>
+						{{_('Publication Date')}}
+					</th>
+					<td>
+						{{_(frappe.format_date(publication_date))}}
+					</td>
+				</tr>
+				{% endif %}
+				{% if age_range %}
+				<tr>
+					<th>
+						{{_('Age Range')}}
+					</th>
+					<td>
+						<a href='/all-books?field_filters=%7B"age_range"%3A%5B"{{age_range}}"%5D%7D' >{{_(age_range)}}</a>
+					</td>
+				</tr>
+				{% endif %}
+				{% if grade_range %}
+				<tr>
+					<th>
+						{{_('Grade Range')}}
+					</th>
+					<td>
+						<a href='/all-books?field_filters=%7B"grade_range"%3A%5B"{{grade_range}}"%5D%7D' >{{_(grade_range)}}</a>
+					</td>
+				</tr>
+				{% endif %}
+				{% if illustration %}
+				<tr>
+					<th>
+						{{_('Illustration')}}
+					</th>
+					<td>
+						{{_('Yes')}}
+					</td>
+				</tr>
+				{% endif %}
+				{% if illustrator %}
+				<tr>
+					<th>
+						{{_('Illustrator')}}
+					</th>
+					<td>
+						<a href='/all-books?field_filters=%7B"illustrator"%3A%5B"{{illustrator}}"%5D%7D' >{{_(illustrator)}}</a>
+					</td>
+				</tr>
+				{% endif %}
+				{% if series %}
+					{% if series_name %}
+					<tr>
+						<th>
+							{{_('Series')}}
+						</th>
+						<td>
+							<a href='/all-books?field_filters=%7B"series_name"%3A%5B"{{series_name}}"%5D%7D' >{{_(series_name)}}</a>
+						</td>
+					</tr>
+					{% endif %}
+					{% if series_number %}
+					<tr>
+						<th>
+							{{_('Series Number')}}
+						</th>
+						<td>
+							{{_(series_number)}}
+						</td>
+					</tr>
+					{% endif %}
+				{% endif %}
+				{% if pages %}
+				<tr>
+					<th>
+						{{_('Pages')}}
+					</th>
+					<td>
+						{{_(pages)}}
+					</td>
+				</tr>
+				{% endif %}
+				{% if number_of_units %}
+				<tr>
+					<th>
+						{{_('Number of Units')}}
+					</th>
+					<td>
+						{{_(number_of_units)}}
+					</td>
+				</tr>
+				{% endif %}
+				{% if publication_width_in %}
+				<tr>
+					<th>
+						{{_('Width')}} <small class="">({{_('INCH')}})</small>
+					</th>
+					<td>
+						{{_(publication_width_in)}}
+					</td>
+				</tr>
+				{% endif %}
+				{% if publication_height_in %}
+				<tr>
+					<th>
+						{{_('Height')}} <small class="">({{_('INCH')}})</small>
+					</th>
+					<td>
+						{{_(publication_height_in)}}
+					</td>
+				</tr>
+				{% endif %}
+				{% if publication_thickness %}
+				<tr>
+					<th>
+						{{_('Thickness')}}
+					</th>
+					<td>
+						{{_(publication_thickness)}}
+					</td>
+				</tr>
+				{% endif %}
+				{% if subjects %}
+				<tr>
+					<th>
+						{{_('Subject')}}
+					</th>
+					<td>
+						{% for subject in subjects %}
+						<a href='/all-books?field_filters=%7B"subject"%3A%5B"{{ subject.publication_subject }}"%5D%7D'><span class="badge badge-dark badge-sm badge-pill text-uppercase px-2 py-1 mr-1">{{ subject.publication_subject }}</span></a>
+						{% endfor %}
+					</td>
+				</tr>
+				{% endif %}
+				{% if awards %}
+				<tr>
+					<th>
+						{{_('Awards')}}
+					</th>
+					<td>
+						{% for award in awards %}
+						<a href='/all-books?field_filters=%7B"awards"%3A%5B"{{award.publication_award}}"%5D%7D'><span class="badge badge-dark badge-sm badge-pill text-uppercase px-2 py-1 mr-1">{{ award.publication_award }}</span></a>
+						{% endfor %}
+					</td>
+				</tr>
+				{% endif %}
+				{% if doc.website_specifications -%}
+					{% for d in doc.website_specifications -%}
+					<tr>
+						<th>
+							{{ _(d.label) }}
+						</th>
+						<td>
+							{{ _(d.description) }}
+						</td>
+					</tr>
+					{%- endfor %}
+				{%- endif %}
+			</tbody>
+		</table>
+	</div>
+</div>

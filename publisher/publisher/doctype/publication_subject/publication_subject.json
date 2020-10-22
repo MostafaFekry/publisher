@@ -1,0 +1,62 @@
+{
+ "autoname": "field:subject",
+ "creation": "2020-07-21 13:23:24.737863",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "subject",
+  "descripton"
+ ],
+ "fields": [
+  {
+   "fieldname": "subject",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Subject",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "descripton",
+   "fieldtype": "Small Text",
+   "label": "Descripton",
+   "translatable": 1
+  }
+ ],
+ "modified": "2020-10-18 01:23:31.923837",
+ "modified_by": "Administrator",
+ "module": "Publisher",
+ "name": "Publication Subject",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Publisher",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

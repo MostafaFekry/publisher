@@ -1,0 +1,29 @@
+{
+ "creation": "2020-07-21 13:48:33.126383",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "publication_award"
+ ],
+ "fields": [
+  {
+   "fieldname": "publication_award",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Publication Award",
+   "options": "Publication Award"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-10-18 01:25:42.188028",
+ "modified_by": "Administrator",
+ "module": "Publisher",
+ "name": "Item Publication Award",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

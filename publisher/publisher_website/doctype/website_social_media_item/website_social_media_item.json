@@ -1,0 +1,68 @@
+{
+ "autoname": "field:social_name",
+ "creation": "2020-06-12 14:12:14.401666",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "social_name",
+  "social_icon",
+  "social_class",
+  "col_break",
+  "social_url",
+  "social_url_target"
+ ],
+ "fields": [
+  {
+   "fieldname": "social_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Social Name",
+   "options": "Website Social Media",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fetch_from": "social_name.social_icon",
+   "fieldname": "social_icon",
+   "fieldtype": "Read Only",
+   "in_list_view": 1,
+   "label": "Social Icon"
+  },
+  {
+   "fetch_from": "social_name.social_class",
+   "fieldname": "social_class",
+   "fieldtype": "Read Only",
+   "in_list_view": 1,
+   "label": "Social Class"
+  },
+  {
+   "fieldname": "col_break",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "social_url",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Social URL",
+   "reqd": 1
+  },
+  {
+   "default": "_blank",
+   "fieldname": "social_url_target",
+   "fieldtype": "Data",
+   "label": "Social URL Target"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-10-18 01:32:34.114937",
+ "modified_by": "Administrator",
+ "module": "Publisher Website",
+ "name": "Website Social Media Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

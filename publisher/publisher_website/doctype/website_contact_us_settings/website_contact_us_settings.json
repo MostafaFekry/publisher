@@ -1,0 +1,186 @@
+{
+ "creation": "2020-06-30 02:35:55.480596",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "help",
+  "introduction_section",
+  "title",
+  "section_01",
+  "google_map",
+  "section_02",
+  "contact_info_heading",
+  "contact_info_description",
+  "contact_info_items",
+  "no_of_columns",
+  "section_03",
+  "branches_info_heading",
+  "branches_info_description",
+  "branches_info__items",
+  "number_of_columns_item",
+  "section_04",
+  "form_title",
+  "form_description",
+  "query_options",
+  "section_05",
+  "head_html_details"
+ ],
+ "fields": [
+  {
+   "fieldname": "help",
+   "fieldtype": "HTML",
+   "label": "Help",
+   "options": "<div class=\"alert\">Link for Contact Us Page is \"/contact\"</div>"
+  },
+  {
+   "fieldname": "introduction_section",
+   "fieldtype": "Section Break",
+   "label": "Introduction"
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "translatable": 1
+  },
+  {
+   "fieldname": "section_01",
+   "fieldtype": "Section Break",
+   "label": "Google Map"
+  },
+  {
+   "fieldname": "google_map",
+   "fieldtype": "Code",
+   "label": "Google Map"
+  },
+  {
+   "fieldname": "section_02",
+   "fieldtype": "Section Break",
+   "label": "Contact Section"
+  },
+  {
+   "fieldname": "contact_info_heading",
+   "fieldtype": "Data",
+   "label": "Contact Info Heading",
+   "translatable": 1
+  },
+  {
+   "fieldname": "contact_info_description",
+   "fieldtype": "Small Text",
+   "label": "Contact Info Description",
+   "translatable": 1
+  },
+  {
+   "fieldname": "contact_info_items",
+   "fieldtype": "Table",
+   "label": "Contact Info items",
+   "options": "Contact Us Info Items"
+  },
+  {
+   "fieldname": "section_03",
+   "fieldtype": "Section Break",
+   "label": "Branches Section"
+  },
+  {
+   "fieldname": "branches_info_heading",
+   "fieldtype": "Data",
+   "label": "Branches Info Heading",
+   "translatable": 1
+  },
+  {
+   "fieldname": "branches_info_description",
+   "fieldtype": "Small Text",
+   "label": "Branches Info Description",
+   "translatable": 1
+  },
+  {
+   "fieldname": "branches_info__items",
+   "fieldtype": "Table",
+   "label": "Branches Info  Items",
+   "options": "Contact Us Branches Items"
+  },
+  {
+   "fieldname": "section_04",
+   "fieldtype": "Section Break",
+   "label": "Form Section"
+  },
+  {
+   "fieldname": "form_title",
+   "fieldtype": "Data",
+   "label": "Form Title",
+   "translatable": 1
+  },
+  {
+   "fieldname": "form_description",
+   "fieldtype": "Small Text",
+   "label": "Form Description",
+   "translatable": 1
+  },
+  {
+   "description": "Contact options, like \"Sales Query, Support Query\" etc each on a new line or separated by commas.",
+   "fieldname": "query_options",
+   "fieldtype": "Small Text",
+   "label": "Query Options"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_05",
+   "fieldtype": "Section Break",
+   "label": "HTML Header"
+  },
+  {
+   "description": "Added HTML in the  section of the web page, primarily used for website verification and SEO",
+   "fieldname": "head_html_details",
+   "fieldtype": "Code",
+   "label": "&lt;head&gt; HTML",
+   "options": "HTML"
+  },
+  {
+   "default": "3",
+   "description": "Number of columns for this section. 3 cards will be shown per row if you select 3 columns.",
+   "fieldname": "no_of_columns",
+   "fieldtype": "Select",
+   "label": "Number of Columns",
+   "options": "1\n2\n3\n4\n6"
+  },
+  {
+   "default": "4",
+   "fieldname": "number_of_columns_item",
+   "fieldtype": "Int",
+   "label": "Branches Number of Columns"
+  }
+ ],
+ "issingle": 1,
+ "modified": "2020-10-20 15:14:05.075618",
+ "modified_by": "Administrator",
+ "module": "Publisher Website",
+ "name": "Website Contact Us Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Website Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

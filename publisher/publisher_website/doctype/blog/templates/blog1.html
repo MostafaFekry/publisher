@@ -1,0 +1,84 @@
+{% extends "templates/web.html" %}
+{% block meta_block %}
+	{% include "templates/includes/meta_block.html" %}
+{% endblock %}
+{% block page_content %}
+<div class="row">
+						<div class="col">
+							<div class="blog-posts single-post mt-4">
+
+								<article class="post post-large blog-single-post ml-0"  itemscope itemtype="http://schema.org/BlogPosting">
+									{% if slideshow %}
+									{% if slides | len > 1 %}
+									<div class="post-image ml-0">
+										<div class="owl-carousel owl-theme show-nav-hover dots-inside nav-inside nav-style-1 nav-light" data-plugin-options="{'items': 1, 'margin': 10, 'loop': false, 'nav': true, 'dots': true}">
+											{% for slide in slides %}
+											<div>
+												<div class="img-thumbnail border-0 p-0 d-block">
+													<img class="img-fluid border-radius-0" src="{{ slide.image }}" alt="">
+												</div>
+											</div>
+											{% endfor %}
+										</div>
+									</div>
+									{% endif %}
+									{% endif %}
+
+									{% if published_on %}
+									<div class="post-date  ml-0">
+										<span class="day">{{ _(frappe.format_date(published_on,"dd")) }}</span>
+										<span class="month">{{ _(frappe.format_date(published_on,"MMM")) }}</span>
+									</div>
+									{% endif %}
+
+									<div class="post-content">
+
+										<h1 class="mb-3" itemprop="headline">{{ _(title) }}</h1>
+
+										<div class="post-meta">
+											{% if blog_settings.allow_display_author_info %}<span><i class="far fa-user"></i> {{ _("By") }} <a href='/{{ blogger_info.route or "#" }}'>{{ _(blogger_info.full_name) }}</a> </span>{% endif %}
+											{% if blog_settings.allow_display_category_info %}<span><i class="far fa-folder"></i> <a href="/{{ category.route }}">{{ _(category.title) }}</a> </span>{% endif %}&nbsp;
+										</div>
+
+										<img src="{{ cover_image }}" class='img-fluid float-right mb-3 mb-1 {% if website_languages_request == "ar"%}mr-sm-4 mr-lg-5 {%- else -%}ml-sm-4 ml-lg-5{%- endif %}ml-sm-4 ml-lg-5' alt="" style="width: 360px;">
+
+										<p class="lead">{{ _(description) }}</p>
+
+										<div itemprop="articleBody" class="longform blog-text mt-5">
+										{{ _(content) }}
+										</div>
+
+										{% if blog_settings.allow_display_author_info %}
+										<div class="post-block post-author mt-4 clearfix">
+											<h4 class="mt-4 mb-3">{{ _("Author") }}</h4>
+											{% if blogger_info.avatar %}
+											<div class="img-thumbnail d-block">
+												<a href='/blogger={{ blogger_info.full_name or "#" }}'>
+													<img src="{{ blogger_info.avatar }}" alt="{{ _(blogger_info.full_name) }}">
+												</a>
+											</div>
+											{% endif %}
+											<p><strong class="name mb-3"><a href='/{{ blogger_info.route or "#" }}'>{{ _(blogger_info.full_name) }}</a></strong></p>
+											{% if blogger_info.bio %}
+											<p class="text-muted mt-1">{{ blogger_info.bio }}</p>
+											{% endif %}
+										</div>
+										{% endif %}
+										{% if enable_comments %}
+										<div class="blog-comments my-5">
+											{% include 'templates/includes/comments/comments.html' %}
+										</div>
+										{% endif %}
+
+									</div>
+								</article>
+
+							</div>
+						</div>
+					</div>
+<script>
+	frappe.ready(() => frappe.set_search_path("/blog"))
+</script>
+{% endblock %}
+
+<!-- this is a sample default web page template -->

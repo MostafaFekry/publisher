@@ -1,0 +1,78 @@
+<footer id="footer" class="bg-color-primary  border-top-0 mt-0">
+				{% if not hide_footer_signup or website_social_media_item%}
+				<div class="container py-2">
+					<div class="row py-4">
+						{% if not hide_footer_signup %}
+						<div class="{% if website_social_media_item%}col-md-6 col-lg-8{% else %}col-lg-12{% endif %} text-lg-left">
+							<div class="row">
+							{% include "templates/includes/footer/footer_newsletter.html" %}
+							</div>
+						</div>
+						{% endif %}
+						{% if website_social_media_item and display_social_links_on_footer %}
+						<div class="{% if not hide_footer_signup%}col-md-6 col-lg-4 text-lg-left{% else %}col-lg-12 text-center{% endif %}">
+							<div class="mt-3 mt-lg-0">
+								<h5 class="text-4 text-color-light mb-3 text-uppercase">{{  _(footer_social_media_title) or _("Stay Connected")}}</h5>
+								<ul class="footer-social-icons social-icons social-icons-clean social-icons-big social-icons-opacity-light social-icons-icon-light mt-0 mt-lg-3">
+								{%- for social_item in website_social_media_item -%}
+									<li class="{{ social_item.social_class }} bg-dark opacity-8"><a href="{{ social_item.social_url }}" target="{{ social_item.social_url_target }}" title="{{ social_item.social_name }}"><i class="{{ social_item.social_icon }}"></i></a></li>
+								{%- endfor %}
+								</ul>
+							</div>
+						</div>
+						{% endif %}
+					</div>
+				</div>
+				{% endif %}
+				<div class="container footer-top-light-border">
+					<div class="row py-5">
+						{% if allow_display_contact_on_footer %}
+						<div class="col-md-4 col-lg-3 mb-4 mb-lg-0 text-lg-left footer-contact-light-border">
+							<h5 class="text-4 text-color-light mb-3 text-uppercase">{{ _(footer_company_information_title) or _("Contact Us") }}</h5>
+							<ul class="list list-unstyled text-color-light">
+								{% if footer_address_title and footer_address_details %}
+								<li class="pb-1 mb-2">
+									<span class="d-block font-weight-normal line-height-1 text-color-light opacity-8 text-uppercase">{{ _(footer_address_title) }}</span> {{ _(footer_address_details) }}
+								</li>
+								{% endif %}
+								{% if footer_tel_title and footer_tel_details %}
+								<li class="pb-1 mb-2">
+									<span class="d-block font-weight-normal line-height-1 text-color-light opacity-8 text-uppercase">{{ _(footer_tel_title) }}</span> <a href="tel:{{ footer_tel_details }}" class="text-color-light">{{ _(footer_tel_details) }}</a>
+								</li>
+								{% endif %}
+								{% if footer_email_title and footer_tel_details %}
+								<li class="pb-1 mb-2">
+									<span class="d-block font-weight-normal line-height-1 text-color-light opacity-8 text-uppercase">{{ _(footer_email_title) }}</span> <a href="mailto:{{ footer_email_details }}" class="text-color-light">{{ _(footer_email_details) }}</a>
+								</li>
+								{% endif %}
+						</div>
+						{% endif %}
+						{% if footer_items -%}
+						<div class="{{ 'col-md-8 col-lg-9' if allow_display_contact_on_footer else 'col-12'}} mb-0 text-lg-left">
+							{% include "templates/includes/footer/footer_items.html" %}
+						</div>
+						{% endif %}
+					</div>
+				</div>
+				<div class="footer-copyright bg-color-primary bg-color-scale-overlay bg-color-scale-overlay-1">
+					<div class="bg-color-scale-overlay-wrapper">
+						<div class="container py-2">
+							<div class="row py-4">
+								<!--<div class="col-lg-1 d-flex align-items-center justify-content-center justify-content-lg-start mb-2 mb-lg-0">
+									<a href="index.html" class="logo pr-0 pr-lg-3">
+										<img alt="Porto Website Template" src="/assets/publisher/img/logo-footer.png" class="opacity-5" height="33">
+									</a>
+								</div>-->
+								<div class="col-lg-8 d-flex align-items-center justify-content-center justify-content-lg-start mb-4 mb-lg-0">
+									{% if website_languages_copyright or copyright %}
+										<p class="text-color-light">&copy; {{ footer_copyright_year }}{{ ' - '+frappe.format_date(frappe.utils.nowdate(), 'yyyy') if not footer_copyright_year == frappe.format_date(frappe.utils.nowdate(), 'yyyy')|int else ''}}, {{ _(website_languages_copyright or copyright) }}</p>
+									{% endif %}
+								</div>
+								<div class="col-lg-4 d-flex align-items-center justify-content-center justify-content-lg-end">
+									{% if footer_allow_payment_image_in_footer %}<img src="/assets/publisher/img/payment-icon.png" alt="Payment icons" class="img-fluid mt-4 mt-lg-2">{% endif%}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</footer>

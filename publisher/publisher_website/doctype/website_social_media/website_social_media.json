@@ -1,0 +1,76 @@
+{
+ "allow_rename": 1,
+ "autoname": "field:social_name",
+ "creation": "2020-06-12 13:39:09.850679",
+ "doctype": "DocType",
+ "document_type": "Document",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "social_name",
+  "social_icon",
+  "social_class"
+ ],
+ "fields": [
+  {
+   "bold": 1,
+   "fieldname": "social_name",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "label": "Social Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "social_icon",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Social Icon",
+   "reqd": 1
+  },
+  {
+   "fieldname": "social_class",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Social Class",
+   "reqd": 1
+  }
+ ],
+ "modified": "2020-10-18 01:32:18.409402",
+ "modified_by": "Administrator",
+ "module": "Publisher Website",
+ "name": "Website Social Media",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Website Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "social_name",
+ "track_changes": 1
+}

@@ -1,0 +1,203 @@
+{
+ "creation": "2020-06-29 20:33:35.766540",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "help",
+  "title",
+  "company_introduction",
+  "company_introduction_ar",
+  "section_01",
+  "about_us_counters_items",
+  "no_of_columns",
+  "section_break_2",
+  "about_us_vision_items",
+  "no_of_columns_about_item",
+  "section_03",
+  "company_history_heading",
+  "company_history_description",
+  "company_history_details",
+  "company_history_image",
+  "company_history",
+  "section_07",
+  "team_members_heading",
+  "team_members_description",
+  "team_members_details",
+  "team_members",
+  "no_of_columns_member_item",
+  "section_break_8",
+  "head_html_details"
+ ],
+ "fields": [
+  {
+   "fieldname": "help",
+   "fieldtype": "HTML",
+   "label": "Help",
+   "options": "<div class=\"alert\">Link for About Us Page is \"/about\"</div>"
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "translatable": 1
+  },
+  {
+   "fieldname": "company_introduction",
+   "fieldtype": "Text Editor",
+   "label": "Company Introduction (En)"
+  },
+  {
+   "fieldname": "company_introduction_ar",
+   "fieldtype": "Text Editor",
+   "label": "Company Introduction (Ar)"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_break_8",
+   "fieldtype": "Section Break",
+   "label": "HTML Header"
+  },
+  {
+   "description": "Added HTML in the  section of the web page, primarily used for website verification and SEO",
+   "fieldname": "head_html_details",
+   "fieldtype": "Code",
+   "label": "&lt;head&gt; HTML",
+   "options": "HTML"
+  },
+  {
+   "fieldname": "section_break_2",
+   "fieldtype": "Section Break",
+   "label": "Mission & Vision Section"
+  },
+  {
+   "fieldname": "about_us_vision_items",
+   "fieldtype": "Table",
+   "label": "About Us Vision Items",
+   "options": "About Us Vision Items"
+  },
+  {
+   "fieldname": "section_01",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "about_us_counters_items",
+   "fieldtype": "Table",
+   "label": "Counters Items",
+   "options": "About Us Counters Items"
+  },
+  {
+   "fieldname": "section_03",
+   "fieldtype": "Section Break",
+   "label": "Org History"
+  },
+  {
+   "fieldname": "company_history_heading",
+   "fieldtype": "Data",
+   "label": "Org History Heading"
+  },
+  {
+   "fieldname": "company_history_description",
+   "fieldtype": "Data",
+   "label": "Org History Description"
+  },
+  {
+   "fieldname": "company_history_details",
+   "fieldtype": "Small Text",
+   "label": "Org History Details"
+  },
+  {
+   "fieldname": "company_history_image",
+   "fieldtype": "Attach Image",
+   "label": "Org History Image"
+  },
+  {
+   "fieldname": "company_history",
+   "fieldtype": "Table",
+   "label": "Org History",
+   "options": "About Us Company History"
+  },
+  {
+   "fieldname": "section_07",
+   "fieldtype": "Section Break",
+   "label": "Team Members"
+  },
+  {
+   "fieldname": "team_members_heading",
+   "fieldtype": "Data",
+   "label": "Team Members Heading"
+  },
+  {
+   "fieldname": "team_members_description",
+   "fieldtype": "Data",
+   "label": "Team Members Description"
+  },
+  {
+   "fieldname": "team_members_details",
+   "fieldtype": "Data",
+   "label": "Team Members Details"
+  },
+  {
+   "fieldname": "team_members",
+   "fieldtype": "Table",
+   "label": "Team Members",
+   "options": "About Us Team Member"
+  },
+  {
+   "default": "3",
+   "description": "Number of columns for this section. 3 cards will be shown per row if you select 3 columns.",
+   "fieldname": "no_of_columns",
+   "fieldtype": "Select",
+   "label": "Number of Columns",
+   "options": "1\n2\n3\n4\n6"
+  },
+  {
+   "default": "3",
+   "description": "Number of columns for this section. 3 cards will be shown per row if you select 3 columns.",
+   "fieldname": "no_of_columns_about_item",
+   "fieldtype": "Select",
+   "label": "Number of Columns",
+   "options": "1\n2\n3\n4\n6"
+  },
+  {
+   "default": "4",
+   "description": "Number of columns for this section. 3 cards will be shown per row if you select 3 columns.",
+   "fieldname": "no_of_columns_member_item",
+   "fieldtype": "Select",
+   "label": "Number of Columns",
+   "options": "1\n2\n3\n4\n6"
+  }
+ ],
+ "issingle": 1,
+ "modified": "2020-10-20 12:26:40.112251",
+ "modified_by": "Administrator",
+ "module": "Publisher Website",
+ "name": "Website About Us Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Website Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

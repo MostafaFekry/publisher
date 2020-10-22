@@ -1,0 +1,34 @@
+<div class="col-md-4 h-100">
+{% if slides %}
+	<div class="thumb-gallery-wrapper">
+		<div class="lightbox" data-plugin-options="{'delegate': 'a', 'type': 'image', 'gallery': {'enabled': true}, 'mainClass': 'mfp-with-zoom', 'zoom': {'enabled': true, 'duration': 300}}">
+		<div class="thumb-gallery-detail owl-carousel owl-theme manual nav-inside nav-style-1 nav-dark mb-3">
+			{% for item in slides %}
+			<div>
+				<a class="img-thumbnail img-thumbnail-no-borders img-thumbnail-hover-icon d-block" href="{{ item.image }}" title="{{ _(item.heading or item_name) }}">
+					<img alt="{{ item.heading }}" class="img-fluid" {% if loop.first %}itemprop="image"{% endif %} src="{{ item.image }}" data-zoom-image="{{ item.image }}">
+				</a>
+
+			</div>
+			{% endfor %}
+		</div>
+		</div>
+		<div class="thumb-gallery-thumbs owl-carousel owl-theme manual thumb-gallery-thumbs">
+			{% for item in slides %}
+			<div>
+				<span class="img-thumbnail img-thumbnail-no-borders d-block cur-pointer">
+					<img alt="{{ item.heading }}" src="{{ item.image }}" class="img-fluid">
+				</span>
+			</div>
+			<div class="cur-pointer">
+				<img alt="{{ item.heading }}" class="img-fluid" src="{{ item.image }}">
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+{% else %}
+<a class="img-thumbnail img-thumbnail-no-borders d-block img-thumbnail-hover-icon lightbox" href="{{ website_image or image or website_no_img_available }}"  title="{{ _(item_name) }}" data-plugin-options="{'type':'image'}">
+	<img class="img-fluid" itemprop="image" src="{{ frappe.utils.quoted(website_image or image or website_no_img_available) | abs_url }}" alt="{{ _(item_name) }}">
+</a>
+{% endif %}
+</div>

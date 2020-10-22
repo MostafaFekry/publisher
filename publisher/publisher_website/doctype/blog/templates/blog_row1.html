@@ -1,0 +1,22 @@
+{%- set post = doc -%}
+<div class='col-lg-{% if blog_settings.number_column_in_row=="2" -%}6{%- endif %}{% if blog_settings.number_column_in_row=="3" -%}4{%- endif %}{% if blog_settings.number_column_in_row=="4" -%}3{%- endif %}'>
+	<div class="recent-posts mt-4 mb-4">
+		{% if post.cover_image %}
+		<a href="/{{ post.route }}">
+			<img class="img-fluid pb-3" src="{{ post.cover_image }}" alt="{{post.title}} - Cover Image">
+		</a>
+		{% endif %}
+		<article class="post">
+			{% if post.published_on %}
+			<div class="post-date">
+				<span class="day">{{ _(frappe.format_date(post.published_on,"dd")) }}</span>
+				<span class="month">{{ _(frappe.format_date(post.published_on,"MMM")) }}</span>
+			</div>
+			{% endif %}
+			<h4 class="pt-2 pb-0 mb-0"><a class="text-color-dark" href="/{{ post.route }}">{{ _(post.title) }}</a></h4>
+			<p> {% if blog_settings.allow_display_author_info %}<span><i class="far fa-user"></i> {{ _("By") }} <a href='/{{ post.bloggeroute or "#" }}'>{{ _(post.full_name) }}</a> </span>{% endif %}{% if blog_settings.allow_display_category_info %}<span><i class="far fa-folder"></i> <a href="/{{ post.category.route }}">{{ _(post.category.title) }}</a> </span>{% endif %}&nbsp;</p>
+			<p>{{ _(post.intro) }}</p>
+			<a class="mt-3" href="/{{ post.route }}">{{ _("Read More") }} <i class="fas fa-long-arrow-alt-right"></i></a>
+		</article>
+	</div>
+</div>

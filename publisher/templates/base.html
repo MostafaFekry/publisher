@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<!-- Built on Frappe. https://frappe.io/ -->
+<html lang='{{ website_languages_request or "en" }}'{% if website_languages_request == "ar" %} dir="rtl"{% endif %} {% if themecustom.boxed  %} class="boxed" {% if themecustom.image  %} style="background-image: url('{{ themecustom.image }}');"{% endif %}{% endif %} >
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
+	<meta name="generator" content="frappe">
+	<meta name="theme-color" content="#0063b0">
+	<link rel="canonical" href="http://publisher.systematiceg.com">
+
+	{% block meta_block %}
+		{% include "templates/includes/meta_block.html" %}
+	{% endblock %}
+
+	<title>{% block title %} {{ title | striptags }} {% endblock %}</title>
+
+	{% block favicon %}
+	<link rel="shortcut icon" href='{{ (favicon or "/assets/publisher/img/publisher-icon.png") | abs_url }}' type="image/x-icon">
+	<link rel="apple-touch-icon" href='{{ (favicon or "/assets/publisher/img/publisher-icon.png") | abs_url }}'>
+	{% endblock %}
+
+	<!-- Web Fonts  -->
+	{% if website_languages_request == "ar"%}
+	<link href="https://fonts.googleapis.com/css?family=Cairo:300,400,600,700,900|Josefin+Sans:400,400i,600,700&amp;subset=arabic" rel="stylesheet">
+	{%- else -%}
+	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800%7CShadows+Into+Light%7CPlayfair+Display:400&display=swap" rel="stylesheet" type="text/css">
+	{%- endif %}
+
+	{%- block head -%}
+		{% if head_html is defined -%}
+		{{ head_html or "" }}
+		{%- endif %}
+
+		{% if theme.theme_url %}
+		<link type="text/css" rel="stylesheet" href="{{ theme.theme_url }}">
+		{% else %}
+		<link type="text/css" rel="stylesheet" href="/assets/css/frappe-web-b4.css">
+
+		{%- for link in web_include_css %}
+		<link type="text/css" rel="stylesheet" href="{{ link|abs_url }}">
+		{%- endfor -%}
+		{% endif %}
+	{%- endblock -%}
+
+	{%- block head_include %}
+		{{ head_include or "" }}
+	{% endblock -%}
+
+	{%- block style %}{%- endblock -%}
+
+	<!-- Vendor CSS -->
+	<link rel="stylesheet" href="/assets/publisher/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/assets/publisher/vendor/fontawesome-free/css/all.min.css">
+	<link rel="stylesheet" href="/assets/publisher/vendor/animate/animate.compat.css">
+	<link rel="stylesheet" href="/assets/publisher/vendor/simple-line-icons/css/simple-line-icons.min.css">
+	<link rel="stylesheet" href="/assets/publisher/vendor/owl.carousel/assets/owl.carousel.min.css">
+	<link rel="stylesheet" href="/assets/publisher/vendor/owl.carousel/assets/owl.theme.default.min.css">
+	<link rel="stylesheet" href="/assets/publisher/vendor/magnific-popup/magnific-popup.min.css">
+	<link rel="stylesheet" href='/assets/publisher/vendor/bootstrap-star-rating/css/{% if website_languages_request == "ar" -%}rtl-{%- endif %}star-rating.min.css'>
+	<link rel="stylesheet" href="/assets/publisher/vendor/bootstrap-star-rating/themes/krajee-fas/theme.min.css">
+
+	<!-- Theme CSS -->
+	<link rel="stylesheet" href='/assets/publisher/css/{% if website_languages_request == "ar" -%}rtl-{%- endif %}theme.css'>
+	<link rel="stylesheet" href='/assets/publisher/css/{% if website_languages_request == "ar" -%}rtl-{%- endif %}theme-elements.css'>
+	<link rel="stylesheet" href='/assets/publisher/css/{% if website_languages_request == "ar" -%}rtl-{%- endif %}theme-blog.css'>
+	<link rel="stylesheet" href='/assets/publisher/css/{% if website_languages_request == "ar" -%}rtl-{%- endif %}theme-shop.css'>
+
+	<!-- Current Page CSS -->
+	<link rel="stylesheet" href="/assets/publisher/vendor/rs-plugin/css/settings.css">
+	<link rel="stylesheet" href="/assets/publisher/vendor/rs-plugin/css/layers.css">
+	<link rel="stylesheet" href="/assets/publisher/vendor/rs-plugin/css/navigation.css">
+	<link rel="stylesheet" href="/assets/publisher/vendor/circle-flip-slideshow/css/component.css">
+
+	<!-- Skin CSS -->
+	<link rel="stylesheet" href="/assets/publisher/css/skins/default.css">
+
+	<!-- Theme default CSS -->
+	<link rel="stylesheet" href='/assets/publisher/css/{% if website_languages_request == "ar" -%}rtl-{%- endif %}default.css'>
+
+	<!-- Theme Custom CSS -->
+	{% if themecustom.theme_url %}
+	<link type="text/css" rel="stylesheet" href="{{ themecustom.theme_url }}">
+	{% else %}
+	<link rel="stylesheet" href="/assets/publisher/css/custom.css">
+	{% endif %}
+
+	<!-- Head Libs -->
+	<script src="/assets/publisher/vendor/modernizr/modernizr.min.js"></script>
+
+	<script>
+		window.frappe = {};
+		frappe.ready_events = [];
+		frappe.ready = function(fn) {
+			frappe.ready_events.push(fn);
+		}
+		window.dev_server = {{ dev_server }};
+		window.socketio_port = {{ (frappe.socketio_port or 'null') }};
+    </script>
+</head>
+<body frappe-session-status="{{ 'logged-in' if frappe.session.user != 'Guest' else 'logged-out'}}" data-path="{{ path | e }}" {%- if template and template.endswith('.md') %} frappe-content-type="markdown" {% endif -%}>
+	<div class="body">
+	{%- block navbar -%}
+	{% if allow_top_bar_notice and top_bar_notice %}
+	<div class="notice-top-bar bg-primary" data-sticky-start-at="180">
+		<button class="hamburguer-btn hamburguer-btn-light notice-top-bar-close m-0 active" data-set-active="false">
+			<span class="close">
+				<span></span>
+				<span></span>
+			</span>
+		</button>
+		<div class="container">
+			<div class="row justify-content-center py-2">
+				<div class="col-9 col-md-12 text-center">
+					{{ top_bar_notice or "" }}
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endif %}
+	{% if headerdesign.header_design_url %}
+		{% include headerdesign.header_design_url %}
+	{% else %}
+		{% include "templates/includes/header/navbar/navbar.html" %}
+	{% endif %}
+	{%- endblock -%}
+
+	{% block content %}
+		{{ content }}
+	{% endblock %}
+	{% block topfooter %}{% endblock %}
+	{%- block footer -%}
+		{% include "templates/includes/footer/footer.html" %}
+	{%- endblock -%}
+
+	{% block base_scripts %}
+	</div>
+
+	<!-- Vendor -->
+	<script src="/assets/publisher/vendor/jquery/jquery.min.js"></script>
+	<script src="/assets/publisher/vendor/jquery.appear/jquery.appear.min.js"></script>
+	<script src="/assets/publisher/vendor/jquery.easing/jquery.easing.min.js"></script>
+	<script src="/assets/publisher/vendor/jquery.cookie/jquery.cookie.min.js"></script>
+	<script src="/assets/publisher/vendor/popper/umd/popper.min.js"></script>
+	<script src="/assets/publisher/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/assets/publisher/vendor/common/common.min.js"></script>
+	<script src="/assets/publisher/vendor/jquery.validation/jquery.validate.min.js"></script>
+	<script src="/assets/publisher/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
+	<script src="/assets/publisher/vendor/jquery.gmap/jquery.gmap.min.js"></script>
+	<script src="/assets/publisher/vendor/jquery.lazyload/jquery.lazyload.min.js"></script>
+	<script src="/assets/publisher/vendor/isotope/jquery.isotope.min.js"></script>
+	<script src="/assets/publisher/vendor/owl.carousel/owl.carousel.min.js"></script>
+	<script src="/assets/publisher/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+	<script src="/assets/publisher/vendor/vide/jquery.vide.min.js"></script>
+	<script src="/assets/publisher/vendor/vivus/vivus.min.js"></script>
+	<script src="/assets/publisher/vendor/bootstrap-star-rating/js/star-rating.min.js"></script>
+	<script src="/assets/publisher/vendor/bootstrap-star-rating/themes/krajee-fas/theme.min.js"></script>
+	<script src="/assets/publisher/vendor/jquery.countdown/jquery.countdown.min.js"></script>
+	<script src="/assets/publisher/vendor/elevatezoom/jquery.elevatezoom.min.js"></script>
+
+	<!-- Theme Base, Components and Settings -->
+	<script src="/assets/publisher/js/theme.js"></script>
+
+	<!-- Current Page Vendor and Views -->
+	<script src="/assets/publisher/vendor/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
+	<script src="/assets/publisher/vendor/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+
+	<!-- Current Page Vendor and Views -->
+	<script src="/assets/publisher/js/views/view.contact.js"></script>
+
+	<!-- Theme Custom -->
+	<script src="/assets/publisher/js/custom.js"></script>
+
+	<!-- Theme Initialization Files -->
+	<script src="/assets/publisher/js/theme.init.js"></script>
+
+	<!-- js should be loaded in body! -->
+	<script type="text/javascript" src="/assets/publisher/js/frappe-web.min.js"></script>
+	{% endblock %}
+
+	{%- for link in web_include_js %}
+	<script type="text/javascript" src="{{ link | abs_url }}"></script>
+	{%- endfor -%}
+
+	{%- block script %}{%- endblock %}
+	<!-- csrf_token -->
+	{%- block body_include %}{{ body_include or "" }}{% endblock -%}
+</body>
+</html>

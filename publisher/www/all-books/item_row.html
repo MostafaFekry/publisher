@@ -1,0 +1,103 @@
+{% if item.item_name %}
+	{% set author, isbn = frappe.db.get_value('Item', item.name, ['author', 'isbn']) %}
+	{% if display_all_books_as == 'Grid' %}
+	<div class="col-md-{{ all_books_column_value or 3}}">
+		<a href="{{ (item.route)|abs_url }}">
+			<span class="thumb-info thumb-info-centered-info thumb-info-no-borders">
+				<span class="thumb-info-wrapper">
+					<img src="{{ (item.website_image) or (item.image)  or website_no_img_available }}" class="img-fluid" alt=""><!--/assets/publisher/img/room-1.jpg-->
+					<span class="thumb-info-title">
+						<span class="thumb-info-inner">{{ _("View Details") }}</span>
+					</span>
+				</span>
+			</span>
+		</a>
+		<a href="{{ (item.route)|abs_url }}" class="text-decoration-none"><h5 class="mt-3 mb-0 text-color-primary">{{ _(item.item_name) }}</h5></a>
+		<div class="book-details-info">
+			<ul>
+				{% if item.author or author %}<li><label {% if all_books_column_value < 4%}class="d-none d-lg-inline-flex"{% endif %}>{{ _("Author") }}</label>	<span {% if all_books_column_value < 4%}class="w-sm-100 text-sm-center"{% endif %}>{{ (item.author or author) }}</span></li>{% endif %}
+				{% if item.isbn or isbn %}<li><label  {% if all_books_column_value < 4%}class="d-none d-lg-inline-flex"{% endif %}>{{ _("ISBN") }}</label> <span {% if all_books_column_value < 4%}class="w-sm-100 text-sm-center"{% endif %}>{{ (item.isbn or isbn) }}</span></li>{% endif %}
+				{% if show_price and item.product_info.price %}
+				<li><label  {% if all_books_column_value < 4%}class="d-none d-lg-inline-flex"{% endif %}>{{ _("Rates from") }}</label> <strong {% if all_books_column_value < 4%}class="w-sm-100 text-sm-center"{% endif %}>{{ _(item.product_info.price.currency) }} {{ (item.product_info.price.price_list_rate) }}</strong></li>
+				{% endif %}
+
+			</ul>
+		</div>
+
+	</div>
+	{% else %}
+	<div class="col-12 p-0 card mb-3 custom-card">
+		<div class="row no-gutters">
+			<div class="col-md-3">
+				<div class="card-body">
+					<a class="no-underline" href="/{{ item.route }}">
+						<img class="website-image" src="{{ item.website_image or item.image  or website_no_img_available }}" alt="{{ item.item_name }}">
+					</a>
+				</div>
+			</div>
+			<div class="col-md-9">
+				<div class="card-body">
+					<h5 class="card-title">
+						<a class="mb-3 text-5 text-color-primary font-weight-bold text-decoration-none" href="/{{ item.route }}">{{ item.item_name or item.name }}</a>
+					</h5>
+					<p class="card-text">
+						{{ _(item.website_description or item.description) }}
+					</p>
+					<div class="">
+						<ul>
+							{% if item.author %}<li><label>{{ _("Author") }}</label>	<span>{{ (item.author) }}</span></li>{% endif %}
+							{% if item.isbn %}<li><label>{{ _("ISBN") }}</label> <span>{{ (item.isbn) }}</span></li>{% endif %}
+							{% if item.product_info.price %}
+							<li><label>{{ _("Rates from") }}</label> <strong>{{ _(item.product_info.price.currency) }} {{ (item.product_info.price.price_list_rate) }}</strong></li>
+							{% endif %}
+
+						</ul>
+					</div>
+					<a href="/{{ item.route }}" class="link-hover-style-1 text-color-primary text-uppercase">{{ _("More details")}}+</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% endif %}
+{% else %}
+{% if website_display_category_items_as == 'Grid' %}
+<div class="col-md-{{ website_no_of_columns_category or 4}} mb-4 pb-2">
+	<div class="card custom-card appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="600">
+		<div class="card-body text-center py-3">
+			<div class="feature-box-icon d-flex justify-content-center w-auto my-2 py-4">
+					<a class="no-underline" href="/{{ item.route }}"><img width="80" src="{{ item.image or website_no_img_available }}" alt="{{ _(item.name) }}" /></a>
+			</div>
+			<a class="card-title mb-3 text-5 text-secondary font-weight-bold text-decoration-none" href="/{{ item.route }}">{{ _(item.name) }}</a>
+			<p class="card-text">{{ _(item.description) or ""  }}</p>
+			<p class="font-weight-bold mb-0 pb-4">
+				<a href="/{{ item.route }}" class="link-hover-style-1 text-color-primary text-uppercase">{{ _("Read More")}}+</a>
+			</p>
+		</div>
+	</div>
+</div>
+{% else %}
+<div class="col-12 p-0 card mb-3 custom-card appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="600">
+	<div class="row no-gutters">
+		<div class="col-md-3">
+			<div class="card-body">
+				<a class="no-underline" href="/{{ item.route }}">
+					<img class="website-image" src="{{ item.image or website_no_img_available }}" alt="{{ item.item_name }}">
+				</a>
+			</div>
+		</div>
+		<div class="col-md-9">
+			<div class="card-body">
+				<h5 class="card-title">
+					<a class="mb-3 text-5 text-secondary font-weight-bold text-decoration-none" href="/{{ item.route }}">{{ _(item.name) }}</a>
+				</h5>
+				<p class="card-text">
+					{{ item.website_description or item.description or '' }}
+				</p>
+				<a href="/{{ item.route }}" class="link-hover-style-1 text-color-primary text-uppercase">{{ _("Read More")}}+</a>
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}
+{% endif %}

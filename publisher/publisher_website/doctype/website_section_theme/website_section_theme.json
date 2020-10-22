@@ -1,0 +1,124 @@
+{
+ "autoname": "field:section_theme_name",
+ "creation": "2020-07-13 19:31:35.611188",
+ "doctype": "DocType",
+ "document_type": "Setup",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_theme_name",
+  "section_01",
+  "class_name",
+  "custom_background",
+  "background_image",
+  "background_video",
+  "col_01",
+  "removing_top_border",
+  "removing_margin_top_and_bottom",
+  "with_divider",
+  "center_aligned"
+ ],
+ "fields": [
+  {
+   "bold": 1,
+   "fieldname": "section_theme_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Section Theme Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "section_01",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "class_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Class Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "custom_background",
+   "fieldtype": "Select",
+   "label": "Custom Background",
+   "options": "\nImage\nVideo"
+  },
+  {
+   "depends_on": "eval:in_list([\"Image\"], doc.custom_background)",
+   "fieldname": "background_image",
+   "fieldtype": "Attach Image",
+   "label": "Background Image"
+  },
+  {
+   "depends_on": "eval:in_list([\"Video\"], doc.custom_background)",
+   "fieldname": "background_video",
+   "fieldtype": "Attach",
+   "label": "Background Video"
+  },
+  {
+   "fieldname": "col_01",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "removing_top_border",
+   "fieldtype": "Check",
+   "label": "Removing Top Border"
+  },
+  {
+   "default": "0",
+   "fieldname": "removing_margin_top_and_bottom",
+   "fieldtype": "Check",
+   "label": "Removing Margin Top and Bottom"
+  },
+  {
+   "default": "0",
+   "fieldname": "with_divider",
+   "fieldtype": "Check",
+   "label": "With Divider"
+  },
+  {
+   "default": "0",
+   "fieldname": "center_aligned",
+   "fieldtype": "Check",
+   "label": "Center Aligned"
+  }
+ ],
+ "modified": "2020-10-18 01:33:31.971616",
+ "modified_by": "Administrator",
+ "module": "Publisher Website",
+ "name": "Website Section Theme",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Website Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "section_theme_name",
+ "track_changes": 1
+}

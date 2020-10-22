@@ -1,0 +1,403 @@
+{
+ "creation": "2020-06-13 13:56:28.364702",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "language_option_section_break",
+  "enable_multilanguage_support",
+  "column_break_3",
+  "display_language_picker_in_top_bar",
+  "website_languages_section_break_02",
+  "website_languages",
+  "section_01",
+  "website_theme_settings",
+  "col_break_10",
+  "website_header_design",
+  "website_page_header_design",
+  "section_02",
+  "publication_item_group",
+  "column_break_04",
+  "sub_menu_design",
+  "social_links_sb",
+  "display_social_links_on_header_top_bar",
+  "display_social_links_on_footer",
+  "website_social_media_item",
+  "section_03",
+  "all_books_page_title",
+  "display_all_books_as",
+  "no_of_columns_all_books",
+  "col_break_05",
+  "help_all_books",
+  "filter_position",
+  "help",
+  "section_04",
+  "display_sidebar_category_in_publication_categories",
+  "display_category_items_as",
+  "no_of_columns_category",
+  "col_break_06",
+  "display_sidebar_category_in_publication_items",
+  "display_publication_items_as",
+  "no_of_columns_publication_items",
+  "section_05",
+  "login_required",
+  "allow_rating",
+  "max_comments_show",
+  "max_post_allowed",
+  "publication_item_enable_comments",
+  "footer_section_section",
+  "allow_payment_image_in_footer",
+  "copyright_year",
+  "section_break_44",
+  "all_data_added_to_publisher",
+  "example_data_updated"
+ ],
+ "fields": [
+  {
+   "fieldname": "language_option_section_break",
+   "fieldtype": "Section Break",
+   "label": "Language Option"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_multilanguage_support",
+   "fieldtype": "Check",
+   "label": "Enable Multi-language Support"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "display_language_picker_in_top_bar",
+   "fieldtype": "Check",
+   "label": "Display Language Picker in Top Bar"
+  },
+  {
+   "fieldname": "website_languages_section_break_02",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "website_languages",
+   "fieldtype": "Table",
+   "label": "Website Languages",
+   "options": "Website Languages"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "social_links_sb",
+   "fieldtype": "Section Break",
+   "label": "Social Links"
+  },
+  {
+   "fieldname": "website_social_media_item",
+   "fieldtype": "Table",
+   "label": "Website Social Media Item",
+   "options": "Website Social Media Item"
+  },
+  {
+   "fieldname": "section_01",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "website_theme_settings",
+   "fieldtype": "Link",
+   "label": "Website Theme Settings",
+   "options": "Website Theme Settings"
+  },
+  {
+   "fieldname": "col_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "website_header_design",
+   "fieldtype": "Link",
+   "label": "Website Header Design",
+   "options": "Website Header Design"
+  },
+  {
+   "fieldname": "website_page_header_design",
+   "fieldtype": "Link",
+   "label": "Website Page Header Design",
+   "options": "Website Page Header Design"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_02",
+   "fieldtype": "Section Break",
+   "label": "Top Bar"
+  },
+  {
+   "description": "Select group of Publication to display item group in top  bar menu, Must be Group.",
+   "fieldname": "publication_item_group",
+   "fieldtype": "Link",
+   "label": "Publication Item Group",
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "column_break_04",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "dropdown-submenu",
+   "description": "Select how sub-menu display.",
+   "fieldname": "sub_menu_design",
+   "fieldtype": "Select",
+   "label": "Sub Menu Design",
+   "options": "dropdown-submenu\ndropdown-mega"
+  },
+  {
+   "default": "1",
+   "fieldname": "display_social_links_on_header_top_bar",
+   "fieldtype": "Check",
+   "label": "Display Social Links on Header Top bar"
+  },
+  {
+   "default": "0",
+   "fieldname": "display_social_links_on_footer",
+   "fieldtype": "Check",
+   "label": "Display Social Links on Footer"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_03",
+   "fieldtype": "Section Break",
+   "label": "All-Books Settings"
+  },
+  {
+   "fieldname": "all_books_page_title",
+   "fieldtype": "Data",
+   "label": "All Books Page Title",
+   "translatable": 1
+  },
+  {
+   "default": "Grid",
+   "fieldname": "display_all_books_as",
+   "fieldtype": "Select",
+   "label": "Display Items as",
+   "options": "Grid\nList"
+  },
+  {
+   "default": "4",
+   "depends_on": "eval:doc.display_all_books_as==='Grid'",
+   "description": "Number of columns for this section. 3 cards will be shown per row if you select 3 columns.",
+   "fieldname": "no_of_columns_all_books",
+   "fieldtype": "Select",
+   "label": "Number of Columns",
+   "options": "1\n2\n3\n4\n6"
+  },
+  {
+   "fieldname": "col_break_05",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "help_all_books",
+   "fieldtype": "HTML",
+   "label": "Help All Books",
+   "options": "<div class=\"alert\">Link for All Books Page is \"/all-books\"</div>"
+  },
+  {
+   "default": "Right",
+   "description": "Filter position for default language",
+   "fieldname": "filter_position",
+   "fieldtype": "Select",
+   "label": "Filter Position ",
+   "options": "Left\nRight"
+  },
+  {
+   "fieldname": "help",
+   "fieldtype": "HTML",
+   "label": "Help",
+   "options": "<div class=\"alert\">To custom filter item go to <a href=\"desk#Form/Products%20Settings\" target=\"_blank\">Products Settings</a></div>"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_04",
+   "fieldtype": "Section Break",
+   "label": "Publication Settings"
+  },
+  {
+   "default": "1",
+   "fieldname": "display_sidebar_category_in_publication_categories",
+   "fieldtype": "Check",
+   "label": "Display Sidebar Category in Publication Categories"
+  },
+  {
+   "default": "Grid",
+   "fieldname": "display_category_items_as",
+   "fieldtype": "Select",
+   "label": "Display Publication Categories Items as",
+   "options": "Grid\nList"
+  },
+  {
+   "default": "3",
+   "depends_on": "eval:doc.display_category_items_as==='Grid'",
+   "description": "Number of columns for this section. 3 cards will be shown per row if you select 3 columns.",
+   "fieldname": "no_of_columns_category",
+   "fieldtype": "Select",
+   "label": "Number of Columns",
+   "options": "1\n2\n3\n4\n6"
+  },
+  {
+   "fieldname": "col_break_06",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "fieldname": "display_sidebar_category_in_publication_items",
+   "fieldtype": "Check",
+   "label": "Display Sidebar Category in Publication Items"
+  },
+  {
+   "default": "Grid",
+   "fieldname": "display_publication_items_as",
+   "fieldtype": "Select",
+   "label": "Display Publication Items as",
+   "options": "Grid\nList"
+  },
+  {
+   "default": "4",
+   "depends_on": "eval:doc.display_publication_items_as==='Grid'",
+   "description": "Number of columns for this section. 3 cards will be shown per row if you select 3 columns.",
+   "fieldname": "no_of_columns_publication_items",
+   "fieldtype": "Select",
+   "label": "Number of Columns",
+   "options": "1\n2\n3\n4\n6"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_05",
+   "fieldtype": "Section Break",
+   "label": "Comments and Reviews Section"
+  },
+  {
+   "default": "0",
+   "fieldname": "login_required",
+   "fieldtype": "Check",
+   "label": "Must login to add Comments or Reviews"
+  },
+  {
+   "default": "1",
+   "fieldname": "allow_rating",
+   "fieldtype": "Check",
+   "label": "Allow Rating"
+  },
+  {
+   "default": "7",
+   "fieldname": "max_comments_show",
+   "fieldtype": "Int",
+   "label": "Max Comments or Reviews Show"
+  },
+  {
+   "default": "50",
+   "fieldname": "max_post_allowed",
+   "fieldtype": "Int",
+   "label": "Max Comments Or Reviews Allowed to Post"
+  },
+  {
+   "default": "1",
+   "fieldname": "publication_item_enable_comments",
+   "fieldtype": "Check",
+   "label": "Allow Comments or Reviews on Publication Item Page"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "footer_section_section",
+   "fieldtype": "Section Break",
+   "label": "Footer Section",
+   "permlevel": 1
+  },
+  {
+   "default": "2020",
+   "fieldname": "copyright_year",
+   "fieldtype": "Int",
+   "label": "Copyright Year",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "section_break_44",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "example_data_updated",
+   "fieldtype": "Check",
+   "label": "Example Data Updated",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "allow_payment_image_in_footer",
+   "fieldtype": "Check",
+   "label": "Allow Payment Image in Footer"
+  },
+  {
+   "default": "0",
+   "fieldname": "all_data_added_to_publisher",
+   "fieldtype": "Check",
+   "label": "All Data Added To Publisher",
+   "read_only": 1
+  }
+ ],
+ "issingle": 1,
+ "modified": "2020-10-22 05:11:12.413525",
+ "modified_by": "Administrator",
+ "module": "Publisher Website",
+ "name": "Publisher Website Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Administrator",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "delete": 1,
+   "email": 1,
+   "permlevel": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Administrator",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "permlevel": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Website Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

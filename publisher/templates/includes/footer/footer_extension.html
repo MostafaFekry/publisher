@@ -1,0 +1,22 @@
+		<section class="section section-no-border bg-color-primary m-0">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="text-center">
+							<a href="{{ (download_brochure_link or '') | abs_url }}" target='_blank'><button type="button" class="btn btn-outline btn-rounded btn-secondary btn-xl btn-with-arrow text-color-light mb-2" >{% if website_languages_request == "ar"%} <span><i class="fas fa-download"></i></span>{%- endif %}{{ _(download_brochure_title or 'Download Brochure') }}{% if website_languages_request == "en"%} <span><i class="fas fa-download"></i></span>{%- endif %}</button></a>
+						</div>
+					</div>
+					<div class="col-lg-6 divider-left-border">
+						<div class="text-center">
+							{% if website_social_media_item %}
+							<ul class="footer-social-icons social-icons social-icons-clean social-icons-big social-icons-opacity-light   social-icons-icon-light">
+							{%- for social_item in website_social_media_item -%}
+								<li class="{{ social_item.social_class }}"><a href="{{ social_item.social_url }}" target="{{ social_item.social_url_target }}" title="{{ social_item.social_name }}"><i class="{{ social_item.social_icon }}"></i></a></li>
+							{%- endfor %}
+							</ul>
+							{%- endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>

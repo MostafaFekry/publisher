@@ -1,0 +1,32 @@
+{% if pageheaderdesign.page_header_design_url %}
+	{% include pageheaderdesign.page_header_design_url %}
+{% else %}
+<section class="page-header page-header-modern bg-color-primary page-header-sm">
+	<div class="container">
+		<div class="row">
+
+			<div class="col-md-12 align-self-center p-static order-2 text-center">
+
+				<h1 class="text-uppercase">{{ title or "" }}</h1>
+
+			</div>
+			{% if not no_breadcrumbs and parents %}
+			<div class="col-md-12 align-self-center order-1" aria-label="breadcrumb">
+				<ul class="breadcrumb breadcrumb-light d-block text-center" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+					{%- set parents = parents[-3:] %}
+					{% for parent in parents %}
+					{% if parent.route == '/all-products' -%}
+					<li><a href="{{ url_prefix }}{{ '/all-books' | abs_url }}" itemprop="url">{{ _(website_all_books_page_title) }}</a>
+					{%- else -%}
+					<li><a href="{{ url_prefix }}{{ parent.route | abs_url }}" itemprop="url">{{ _(parent.title or parent.label or parent.name or "") }}</a>
+					{%- endif %}
+					<meta itemprop="position" content="{{ loop.index }}" /></li>
+					{% endfor %}
+					<li class="active"  aria-current="page">{{ _(title or "") }}</li>
+				</ul>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+</section>
+{% endif %}

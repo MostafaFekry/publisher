@@ -1,0 +1,80 @@
+{
+ "creation": "2020-10-09 00:29:27.437813",
+ "description": "Blog Settings",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "blog_title",
+  "blog_introduction",
+  "writers_introduction",
+  "number_column_in_row",
+  "allow_display_blogger_info",
+  "allow_display_category_info"
+ ],
+ "fields": [
+  {
+   "fieldname": "blog_title",
+   "fieldtype": "Data",
+   "label": "Blog Title"
+  },
+  {
+   "fieldname": "blog_introduction",
+   "fieldtype": "Small Text",
+   "label": "Blog Introduction"
+  },
+  {
+   "fieldname": "writers_introduction",
+   "fieldtype": "Small Text",
+   "label": "Writers Introduction"
+  },
+  {
+   "default": "3",
+   "fieldname": "number_column_in_row",
+   "fieldtype": "Select",
+   "label": "Number column in Row",
+   "options": "1\n2\n3\n4"
+  },
+  {
+   "default": "0",
+   "fieldname": "allow_display_blogger_info",
+   "fieldtype": "Check",
+   "label": "Allow Display Blogger Info"
+  },
+  {
+   "default": "0",
+   "fieldname": "allow_display_category_info",
+   "fieldtype": "Check",
+   "label": "Allow Display Category Info"
+  }
+ ],
+ "icon": "fa fa-cog",
+ "issingle": 1,
+ "modified": "2020-10-18 01:34:16.694819",
+ "modified_by": "Administrator",
+ "module": "Publisher Website",
+ "name": "Website Blog Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Website Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

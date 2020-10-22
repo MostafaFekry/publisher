@@ -1,0 +1,96 @@
+{
+ "autoname": "field:evaluation_number",
+ "creation": "2020-06-09 20:04:30.374968",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "argument",
+  "book",
+  "section_break_3",
+  "author",
+  "column_break_4",
+  "evaluation_number",
+  "evaluation_section",
+  "acceptance"
+ ],
+ "fields": [
+  {
+   "fieldname": "argument",
+   "fieldtype": "Link",
+   "label": "Argument",
+   "options": "Argument"
+  },
+  {
+   "fieldname": "book",
+   "fieldtype": "Data",
+   "label": "Publication",
+   "options": "Item"
+  },
+  {
+   "fieldname": "section_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "author",
+   "fieldtype": "Link",
+   "label": "Author",
+   "options": "Author"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Data"
+  },
+  {
+   "fieldname": "evaluation_number",
+   "fieldtype": "Data",
+   "label": "Evaluation Number",
+   "unique": 1
+  },
+  {
+   "fieldname": "evaluation_section",
+   "fieldtype": "Section Break",
+   "label": "Evaluation"
+  },
+  {
+   "fieldname": "acceptance",
+   "fieldtype": "Text",
+   "label": "Acceptance"
+  }
+ ],
+ "modified": "2020-10-18 01:28:43.827526",
+ "modified_by": "Administrator",
+ "module": "Publisher",
+ "name": "Evaluation",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Publisher",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

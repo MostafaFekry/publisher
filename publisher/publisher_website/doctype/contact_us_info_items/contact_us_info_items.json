@@ -1,0 +1,63 @@
+{
+ "creation": "2020-06-30 02:34:30.922411",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "title",
+  "details",
+  "details_link",
+  "link_target",
+  "col_01",
+  "icon"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Title",
+   "reqd": 1,
+   "translatable": 1
+  },
+  {
+   "fieldname": "details",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Details",
+   "reqd": 1,
+   "translatable": 1
+  },
+  {
+   "fieldname": "details_link",
+   "fieldtype": "Data",
+   "label": "Details Link"
+  },
+  {
+   "fieldname": "link_target",
+   "fieldtype": "Select",
+   "label": "Link Target",
+   "options": "\ntarget=\"_blank\""
+  },
+  {
+   "fieldname": "col_01",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "icon",
+   "fieldtype": "Attach Image",
+   "label": "Icon"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-10-18 01:33:02.865437",
+ "modified_by": "Administrator",
+ "module": "Publisher Website",
+ "name": "Contact Us Info Items",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

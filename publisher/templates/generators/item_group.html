@@ -1,0 +1,90 @@
+{%- set item_group_sidebar = website_display_sidebar_category_in_publication_categories -%}
+{%- set item_group_count = 0 -%}
+{% set ns_item_group_count = namespace(count=0) %}
+{% if sidebarshow_item_group %}
+	{% for item_group in sidebarshow_item_group %}
+		{% if item_group.item_group_name ==  name %}
+			{% set ns_item_group_count.count = item_group.item_item_group_count %}
+		{% endif %}
+	{% endfor %}
+{% endif %}
+{%- set display_all_books_as = website_display_publication_items_as -%}
+{%- set all_books_column_value = website_no_of_columns_publication_items -%}
+{% set show_price = frappe.db.get_single_value('Shopping Cart Settings', 'show_price') %}
+{% extends "templates/web.html" %}
+
+{% block header %}<h1>{{ _(name) }}</h1>{% endblock %}
+{% block page_sidebar %}
+<aside class="sidebar" id="sidebar" data-plugin-sticky data-plugin-options="{'minWidth': 991, 'containerSelector': '.container', 'padding': {'top': 145}}">
+	{% if sidebarshow_item_group %}
+		{% include "publisher/templates/includes/sidebarshow_item_group.html" %}
+	{% endif %}
+
+</aside>
+{% endblock %}
+{% block page_content %}
+<div class="item-group-content" itemscope itemtype="http://schema.org/Product">
+	<div>
+		{% if slideshow %}<!-- slideshow -->
+		{% include "templates/includes/slideshow.html" %}
+		{% endif %}
+		{% if description %}<!-- description -->
+		<div class="mb-3" itemprop="description">{{ _(description) or ""}}</div>
+		{% endif %}
+	</div>
+	{% if items and ns_item_group_count.count > 0 %}
+	<div class="row toolbar mb-4 pb-2">
+		<div class="col-md-12">
+			<div class="shop-tab">
+				<div class="list-page">
+					<p>{% if frappe.form_dict.start %}{{ frappe.form_dict.start }}{% else %}1{% endif %} - {% if items|len < page_length %}{{ (items|len + (frappe.form_dict.start|int)) or '0' }}{% else %}{{ (page_length + (frappe.form_dict.start|int or 0)) }}{% endif %} {{ _("of") }} {{ ns_item_group_count.count or item_group_count }} {{ _("results") }}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endif %}
+	<div class="row pb-3"  id="search-list">
+			{% if items %}
+					{% for i in range(0, page_length) %}
+						{% if items[i] %}
+							{%- set item = items[i] %}
+							{% include "publisher/www/all-books/item_row.html" %}
+						{% endif %}
+					{% endfor %}
+			{% else %}
+			<div class="text-muted">{{ _("No publication found") }}.</div>
+			{% endif %}
+	</div>
+	{% if items and ns_item_group_count.count > 0 %}
+		{% set pages_count = (ns_item_group_count.count/page_length)|round(0, 'ceil')|int %}
+		{% set page_index = 1  %}
+		{% if frappe.form_dict.start  and frappe.form_dict.start|int != 0 %}
+			{% set page_index = (frappe.form_dict.start|int/page_length)|int + 1  %}
+		{% endif %}
+		{% set page_start_index = page_index - 3 if page_index >= 3 else 0  %}
+		{% set page_end_index = page_index + 3 if page_index <= pages_count - 3 else pages_count  %}
+	<div class="row toolbarfootor pt-2">
+		<div class="col-12  text-right">
+
+			<p class="list-page  float-right">{{_("Page") }} {{ page_index }} {{_("of") }} {{ pages_count }}</p>
+			{% if ns_item_group_count.count > page_length %}
+			<ul class="pagination float-right">
+				{% if frappe.form_dict.start|int > 0 %}
+				<li class="page-item"><a class="page-link btn-prev" href="/{{ pathname }}?start={{ frappe.form_dict.start|int - page_length }}">{{ _("Prev") }}</a></li>
+				{% endif %}
+				{% for n in range(page_start_index+1 ,page_end_index+1) %}
+						<li class="page-item {% if frappe.form_dict.start|int == 0 and (n) == 1 %}active{% endif %}{% if frappe.form_dict.start|int != 0 %}{% if (frappe.form_dict.start|int)/page_length == n-1 %}active{% endif %}{% endif %}"><a class="page-link btn-page"  href="/{{ pathname }}?start={{ (n-1) * page_length }}">{{ n }}</a></li>
+				{% endfor %}
+				{% if (page_length+frappe.form_dict.start|int) < ns_item_group_count.count %}
+				<li class="page-item"><a class="page-link btn-next" href="/{{ pathname }}?start={{ frappe.form_dict.start|int + page_length }}">{{ _("Next") }}</i></a></li>
+				{% endif %}
+			</ul>
+			{% endif %}
+
+		</div>
+	</div>
+
+	{% endif %}
+
+</div>
+{% endblock %}

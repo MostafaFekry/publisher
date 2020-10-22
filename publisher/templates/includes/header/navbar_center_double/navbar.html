@@ -1,0 +1,61 @@
+<header id="header" class="header-effect-shrink" data-plugin-options="{'stickyEnabled': true, 'stickyEffect': 'shrink', 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyChangeLogo': true, 'stickyStartAt': 120, 'stickyHeaderContainerHeight': 70}">
+	<div class="header-body border-top-0 border-bottom-0">
+		<div class="header-container container">
+			<div class="header-row">
+				<div class="header-column justify-content-start d-lg-none">
+					<div class="header-row mt-2">
+						<div class="header-logo">
+							<a href="{{ url_prefix }}{{ home_page or "/" }}">
+								{{ brand_html or """<img alt='Publisher' width='275' height='40' data-sticky-width='220' data-sticky-height='32' data-sticky-top='0' src='/assets/publisher/img/logo-publisher.png'>""" or (frappe.get_hooks("brand_html") or [_("Home")])[0] }}
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="header-column justify-content-center align-items-end">
+					<div class="header-nav justify-content-lg-center p-0">
+						<div class="header-nav header-nav-links">
+							{% include "templates/includes/header/navbar_center_double/navbar_items.html" %}
+						</div>
+					</div>
+				</div>
+				<div class="header-column justify-content-end d-none d-lg-flex"></div>
+			</div>
+		</div>
+		<div class="header-nav-bar   bg-primary z-index-0 header-nav-bar-top-border">
+			<div class="header-container container">
+				<div class="header-row">
+					<div class="header-column">
+						<div class="header-row">
+
+							<div class="header-column order-1 order-lg-1">
+								<div class="header-row justify-content-start">
+									<div class="header-nav-features header-nav-features-no-border px-0 ml-0">
+										{% include "templates/includes/header/navbar_center_double/navbar_search.html" %}
+									</div>
+								</div>
+							</div>
+
+							<div class="header-colum order-2 order-lg-2">
+								<div class="header-row ">
+									<div class="header-nav  justify-content-end" >
+										<nav class="header-nav-top">
+											<ul class="nav nav-pills font-weight-semibold text-2">
+												{% include "templates/includes/header/navbar_center_double/weblanguage.html" %}
+												{% include "templates/includes/header/navbar_center_double/navbar_login.html" %}
+											</ul>
+										</nav>
+										{% include "templates/includes/header/navbar_center_double/navbar_shopping_cart.html" %}
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+</header>

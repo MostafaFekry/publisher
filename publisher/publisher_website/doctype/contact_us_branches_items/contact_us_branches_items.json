@@ -1,0 +1,65 @@
+{
+ "creation": "2020-06-30 02:44:24.981326",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "title",
+  "address",
+  "tel",
+  "email",
+  "col_01",
+  "google_map"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Title",
+   "reqd": 1,
+   "translatable": 1
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Address",
+   "translatable": 1
+  },
+  {
+   "fieldname": "tel",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Tel",
+   "translatable": 1
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Email"
+  },
+  {
+   "fieldname": "col_01",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "google_map",
+   "fieldtype": "Code",
+   "in_list_view": 1,
+   "label": "Google Map"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-10-18 01:33:11.147063",
+ "modified_by": "Administrator",
+ "module": "Publisher Website",
+ "name": "Contact Us Branches Items",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

@@ -1,0 +1,128 @@
+{% extends "templates/web.html" %}
+{% if doc.head_html_details -%}
+{%- block head -%}
+	{{ doc.head_html_details or head_html or "" }}
+{%- endblock -%}
+{%- endif %}
+{% block title %}{{ _(title) }}{% if main_page_title %} | {{ main_page_title  }}{% endif %}{% endblock %}
+{% block topfooter %}
+
+{% if doc.google_map -%}
+<!-- Google Maps - Go to the bottom of the page to change settings and map location. -->
+<div id="googlemaps" class="m-0" style="margin-top: -35px !important;">
+	{{ doc.google_map or "" }}
+</div>
+{%- endif %}
+{% if doc.contact_info_heading %}
+<section class="section bg-color-light border-0 m-0">
+	<div class="container">
+		<div class="row">
+			<div class="col pt-3 text-center">
+				<h2 class="text-uppercase font-weight-bold mb-0 pb-0 data-appear-animation="fadeInUpShorter">{{ _(doc.contact_info_heading or "") }}</h2>
+				<div class="divider divider-secondary divider-small divider-small-center mb-4 mt-0">
+					<hr class="mt-2">
+				</div>
+				{% if doc.contact_info_description -%}<p class="mb-4">{{ _(doc.contact_info_description) }}</p>{%- endif %}
+
+				{% if doc.get({"doctype":"Contact Us Info Items"}) %}
+				<div class="row text-center pb-3 pt-4">
+					{% for d in doc.get({"doctype":"Contact Us Info Items"}) %}
+					<div class="col-md-{{ column_value }} pb-4">
+						{% if d.icon %}<img width="60" src="{{ d.icon }}" alt="" />{%- endif %}
+						<h4 class="m-0 pt-4 font-weight-bold">{{ _(d.title) }}</h4>
+						<p class="m-0">{% if d.details_link %}<a href="{{ d.details_link }}" {{ d.link_target }} class="text-default text-hover-primary">{%- endif %}{{ _(d.details) }}{% if d.details_link %}</a>{%- endif %}</p>
+					</div>
+					{% endfor %}
+				</div>
+				{%- endif %}
+			</div>
+		</div>
+	</div>
+</section>
+{%- endif %}
+{% if doc.get({"doctype":"Contact Us Branches Items"}) and doc.branches_info_heading %}
+<section class="section bg-color-grey-scale-1 section-height-3 border-0 my-0">
+	<div class="container">
+		<div class="row">
+			<div class="col text-center">
+				<h2 class="text-uppercase font-weight-bold mb-0 pb-0 data-appear-animation="fadeInUpShorter">{{ _(doc.branches_info_heading or "") }}</h2>
+				<div class="divider divider-secondary divider-small divider-small-center mb-4 mt-0">
+					<hr class="mt-2">
+				</div>
+				{% if doc.branches_info_description -%}<p class="mb-4">{{ _(doc.branches_info_description) }}</p>{%- endif %}
+			</div>
+		</div>
+		<div class="row justify-content-center">
+			<div class="owl-carousel owl-theme dots-modern  show-nav-hover" data-plugin-options="{'responsive': {'0': {'items': 1}, '479': {'items': 1}, '768': {'items': 2}, '979': {'items': {{number_of_columns_branches}}}, '1199': {'items': {{number_of_columns_branches}}}}, 'nav': true, 'autoHeight': true, 'margin': 10}">
+				{% for d in doc.get({"doctype":"Contact Us Branches Items"}) %}
+				<div>
+					<div class="thumb-info thumb-info-hide-wrapper-bg custom-thumb-info-style-1" style="border: 5px solid #fff;">
+						{% if d.google_map %}
+						<div class="thumb-info-wrapper">
+							{{ d.google_map }}
+						</div>
+						{%- endif %}
+						<div class="thumb-info-footer border-0">
+							<p><strong>{{ _(d.title) }}</strong></p>
+							<ul class="list list-icons text-1">
+								{% if d.address %}<li class="mb-1"><i class="far fa-dot-circle"></i><p class="m-0">{{ _(d.address) }}</p></li>{%- endif %}
+								{% if d.tel %}<li class="mb-1"><i class="fab fa-whatsapp"></i><p class="m-0"><a class="" href="tel:{{ _(d.tel) }}">{{ _(d.tel) }}</a></p></li>{%- endif %}
+								{% if d.email %}<li class="mb-1"><i class="far fa-envelope"></i><p class="m-0"><a class="" href="mailto:{{ _(d.email) }}">{{ _(d.email) }}</a></p></li>{%- endif %}
+							</ul>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+	</div>
+</section>
+{%- endif %}
+{% if doc.form_title %}
+<section class="section bg-color-light border-0 m-0">
+	<div class="container">
+		<div class="row">
+			<div class="col text-center">
+				<h2 class="text-uppercase font-weight-bold mb-0 pb-0 data-appear-animation="fadeInUpShorter">{{ _(doc.form_title or "") }}</h2>
+				<div class="divider divider-secondary divider-small divider-small-center mb-4 mt-0">
+					<hr class="mt-2">
+				</div>
+				{% if doc.form_description -%}<p>{{ _(doc.form_description) }}</p>{%- endif %}
+
+
+				<p id="contact-alert" class="alert alert-warning"	style="display: none;">&nbsp;</p>
+
+					<div class="contact-form-error alert alert-danger d-none mt-4">
+						<strong>Error!</strong> There was an error sending your message.
+						<span class="mail-error-message text-1 d-block"></span>
+					</div>
+					<div class="custom-form-style-1">
+						<div class="form-row">
+							<div class="form-group col-lg-6">
+								<select name="subject" class="form-control">
+									<option value="General">{{ _("General") }}</option>
+									</select>
+							</div>
+							<div class="form-group col-lg-6">
+								<input type="email" placeholder='{{ _("Your E-mail") }}' value="" data-msg-required='{{ _("Please enter your email address.") }}' data-msg-email='{{ _("Please enter your email address.") }}' maxlength="100" class="form-control" name="email" required>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col">
+								<textarea placeholder='{{ _("Your Message...") }}' maxlength="5000" data-msg-required='{{ _("Please enter your message.") }}' rows="10" class="form-control" name="message" required></textarea>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col">
+								<button class="btn btn-primary px-4 py-3 text-center text-uppercase font-weight-semibold btn-send">{{ _("Send") }}</button>
+							</div>
+						</div>
+					</div>
+			</div>
+		</div>
+	</div>
+</section>
+<script>
+	{% include "frappe/templates/includes/contact.js" %}
+</script>
+{%- endif %}
+{% endblock %}

@@ -1,0 +1,55 @@
+<div class="col-md-8 summary entry-summary">
+<!-- title -->
+<h1 class="mb-0 font-weight-bold text-7" itemprop="name">
+	{{ _(item_name) }}
+</h1>
+{% if allow_rating and publication_item_enable_comments %}
+<div class="pb-0 clearfix d-flex align-items-center">
+	<div title="Rated {{ item_publication_rating }} out of 5" class="float-left">
+		<input type="text" class="d-none" value="{{ item_publication_rating }}" title="" data-plugin-star-rating data-plugin-options="{'displayOnly': true, 'color': 'primary', 'size':'xs'}">
+	</div>
+
+	<div class="review-num">
+		<a href="#description" class="text-decoration-none text-color-default text-color-hover-primary" data-hash data-hash-offset="75" data-hash-trigger-click=".nav-link-reviews" data-hash-trigger-click-delay="1000">
+			<span class="count text-color-inherit" itemprop="ratingCount">({{ comment_list_count }}</span> {{ _("reviews") }})
+		</a>
+	</div>
+</div>
+{% endif %}
+<div class="divider divider-small">
+	<hr class="bg-color-secondary">
+</div>
+{% if author %}
+<div class="product-meta">
+	<span class="posted-in">{{_('Author By')}}: {% if author_route %}<a rel="tag" href="{{ author_route | abs_url }}">{{ _(author) }}</a>{% else %}{{ _(author) }}{% endif %}.</span>
+</div>
+{% endif %}
+<p class="text-muted">
+	<span>{{ _("SKU") }}:</span>
+	<span itemprop="productID">{{ doc.name }}</span>
+</p>
+{% if isbn %}
+<p class="product-meta">
+	<span class="posted-in">{{_('ISBN')}}: {{_(isbn)}}</span>
+</p>
+{% endif %}
+
+<!-- description -->
+<div itemprop="description">
+{% if frappe.utils.strip_html(doc.web_long_description or '') %}
+	{{ doc.web_long_description | safe }}
+{% elif frappe.utils.strip_html(doc.description or '')  %}
+	{{ doc.description | safe }}
+{% else %}
+	{{ _("No description given") }}
+{% endif  %}
+</div>
+
+{% if has_variants %}
+	<!-- configure template -->
+	{% include "templates/generators/item/item_configure.html" %}
+{% else %}
+	<!-- add variant to cart -->
+	{% include "templates/generators/item/item_add_to_cart.html" %}
+{% endif %}
+</div>

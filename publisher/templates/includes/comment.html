@@ -1,0 +1,26 @@
+{% from "frappe/templates/includes/macros.html" import square_image_with_fallback %}
+<li>
+	<div class="comment">
+		<div class="img-thumbnail border-0 p-0 d-none d-md-block">
+			{{ square_image_with_fallback(src=frappe.get_gravatar(comment.comment_email or comment.sender), size='48px', alt=comment.sender_full_name, class='align-self-start mr-3') }}
+		</div>
+		<div class="comment-block">
+			<div class="comment-arrow"></div>
+			<span class="comment-by">
+				<strong>{{ comment.sender_full_name or comment.comment_by }}</strong>
+				<span class="float-right">
+					<div class="pb-0 clearfix">
+						<div title="Rated 3 out of 5" class="float-left">
+							<input type="text" class="d-none" value="{{ comment.publication_rating }}" title="" data-plugin-star-rating data-plugin-options="{'displayOnly': true, 'color': 'primary', 'size':'xs'}"> {{ comment.publication_rating }}
+						</div>
+
+						<div class="review-num">
+							<span class="count" itemprop="ratingCount">{{ comment.creation | global_date_format }}</span>
+						</div>
+					</div>
+				</span>
+			</span>
+			<p>{{ comment.content | markdown }}</p>
+		</div>
+	</div>
+</li>

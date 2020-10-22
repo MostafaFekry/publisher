@@ -1,0 +1,178 @@
+{
+ "creation": "2020-06-13 17:01:56.074925",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "help",
+  "title",
+  "slideshow_section_section",
+  "slideshow",
+  "section_01",
+  "section_item",
+  "section_02",
+  "author_section_title",
+  "author_section_description",
+  "author",
+  "display_after_section_item_row_number",
+  "section_03",
+  "allow_blog_section",
+  "blog_section_title",
+  "blog_section_description",
+  "column_break_16",
+  "display_blog_after_section_item_row_number",
+  "display_blog_as",
+  "number_of_columns_of_blog_items",
+  "max_number_to_display_of_blog"
+ ],
+ "fields": [
+  {
+   "fieldname": "help",
+   "fieldtype": "HTML",
+   "label": "Help",
+   "options": "<div class=\"alert\">Link for Home Page is \"/index\"</div>"
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "translatable": 1
+  },
+  {
+   "fieldname": "slideshow_section_section",
+   "fieldtype": "Section Break",
+   "label": "Slideshow Section"
+  },
+  {
+   "fieldname": "slideshow",
+   "fieldtype": "Link",
+   "label": "Slideshow",
+   "options": "Website Slideshow"
+  },
+  {
+   "fieldname": "section_01",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_item",
+   "fieldtype": "Table",
+   "label": "Section Item",
+   "options": "Website Homepage Section Item"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_02",
+   "fieldtype": "Section Break",
+   "label": "Author Section"
+  },
+  {
+   "fieldname": "author_section_title",
+   "fieldtype": "Data",
+   "label": "Author Section Title",
+   "translatable": 1
+  },
+  {
+   "fieldname": "author_section_description",
+   "fieldtype": "Small Text",
+   "label": "Author Section Description",
+   "translatable": 1
+  },
+  {
+   "fieldname": "author",
+   "fieldtype": "Link",
+   "label": "Author",
+   "options": "Author"
+  },
+  {
+   "description": "0 Mean display after last item at section item.",
+   "fieldname": "display_after_section_item_row_number",
+   "fieldtype": "Int",
+   "label": "Display After Section Item Row Number"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_03",
+   "fieldtype": "Section Break",
+   "label": "Blog Section"
+  },
+  {
+   "default": "0",
+   "fieldname": "allow_blog_section",
+   "fieldtype": "Check",
+   "label": "Allow Blog Section"
+  },
+  {
+   "fieldname": "blog_section_title",
+   "fieldtype": "Data",
+   "label": "Blog Section Title",
+   "translatable": 1
+  },
+  {
+   "fieldname": "blog_section_description",
+   "fieldtype": "Small Text",
+   "label": "Blog Section Description",
+   "translatable": 1
+  },
+  {
+   "fieldname": "column_break_16",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "0 Mean display after last item at section item.",
+   "fieldname": "display_blog_after_section_item_row_number",
+   "fieldtype": "Int",
+   "label": "Display Blog After Section Item Row Number"
+  },
+  {
+   "default": "Slider",
+   "fieldname": "display_blog_as",
+   "fieldtype": "Select",
+   "label": "Display Blog As",
+   "options": "Slider\nGrid"
+  },
+  {
+   "default": "3",
+   "description": "Number of columns for blog item section. 3 cards will be shown per slider  or grid if not set.",
+   "fieldname": "number_of_columns_of_blog_items",
+   "fieldtype": "Int",
+   "label": "Number of Columns"
+  },
+  {
+   "fieldname": "max_number_to_display_of_blog",
+   "fieldtype": "Int",
+   "label": "Max number to Display"
+  }
+ ],
+ "issingle": 1,
+ "modified": "2020-10-20 10:23:41.906387",
+ "modified_by": "Administrator",
+ "module": "Publisher Website",
+ "name": "Website Homepage Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Website Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

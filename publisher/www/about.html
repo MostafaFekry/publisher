@@ -1,0 +1,136 @@
+{% extends "templates/web.html" %}
+{% if doc.head_html_details -%}
+{%- block head -%}
+	{{ doc.head_html_details or head_html or "" }}
+{%- endblock -%}
+{%- endif %}
+{% block title %}{{ _(title) }}{% if main_page_title %} | {{ main_page_title  }}{% endif %}{% endblock %}
+{% block topfooter %}
+
+<section class="section section-no-border custom-section-spacement-1 bg-color-light m-0 pt-0">
+	<div class="container">
+		<div class="row text-center">
+			<div class="col">
+				<h2 class="text-uppercase text-color-dark font-weight-bold mb-0 pb-0">{{ _(title or name or "") }}</h2>
+				<div class="divider divider-secondary divider-small divider-small-center mb-4 mt-0">
+					<hr class="mt-2">
+				</div>
+				<p class="custom-text-color-1">{% if website_languages_request == "ar" -%}
+				{{ doc.company_introduction_ar or doc.company_introduction or "" }}
+				{%- else -%}
+				{{ doc.company_introduction or "" }}
+				{%- endif %}</p>
+			</div>
+		</div>
+	</div>
+</section>
+{% if doc.get({"doctype":"About Us Counters Items"}) %}
+<section class="section section-no-border bg-color-light custom-section-spacement-2 m-0">
+	<div class="container">
+		<div class="row justify-content-center counters custom-counters counters-text-light">
+			{% for d in doc.get({"doctype":"About Us Counters Items"}) %}
+			<div class="col-md-{{ column_value }} mb-5">
+				<div class="counter text-center appear-animation" data-appear-animation="bounceIn" data-appear-animation-delay="{{ loop.index+2 }}00">
+					{% if d.show_before -%}<span class="unit text-color-secondary">{{ _(d.show_before) }}</span>{%- endif %}
+					<span class="text-color-secondary" data-to="{{ d.data_to }}" {% if d.show_plus -%}data-append="+"{%- endif %}>{{ d.data_from }}</span>
+					<span class="text-color-primary">{{ _(d.title) }}</span>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</section>
+{% endif %}
+{% if doc.get({"doctype":"About Us Vision Items"}) %}
+<section class="section section-no-border section-primary custom-section-spacement-1 m-0">
+	<div class="container">
+		<div class="row">
+			{% for d in doc.get({"doctype":"About Us Vision Items"}) %}
+			<div class="col-md-{{ column_value_about_item }} mb-4">
+				<div class="feature-box feature-box-style-2">
+					{% if d.icon -%}
+					<div class="feature-box-icon w-auto h-auto pt-0">
+						<img src="{{ d.icon }}" alt class="img-fluid" />
+					</div>
+					{%- endif %}
+					<div class="feature-box-info">
+						<h2 class="text-uppercase text-color-light font-weight-bold pt-1 mb-0">{{ _(d.title) }}</h2>
+						<p class="custom-text-color-4 text-4 mb-4">{{ _(d.description) }}</p>
+					</div>
+				</div>
+				<p class="custom-text-color-4">{{ _(d.details) }}</p>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</section>
+{% endif %}
+{% if doc.get({"doctype":"About Us Company History"}) and doc.company_history_heading %}
+<section class="section section-no-border custom-section-spacement-1 bg-color-light m-0">
+	<div class="container">
+		<div class="row">
+			<div class="{% if doc.company_history_image -%}col-lg-6{%- endif %} mb-4 mb-lg-0">
+				<h2 class="text-uppercase text-color-dark font-weight-bold m-0">{{ _(doc.company_history_heading) or "" }}</h2>
+				{% if doc.company_history_description -%}<p class="text-4 text-color-dark mb-4">{{ _(doc.company_history_description) }}</p>{%- endif %}
+				<div class="divider divider-secondary divider-small mb-4 mt-0">
+					<hr class="mt-2">
+				</div>
+				{% if doc.company_history_details -%}<p class="custom-text-color-1">{{ _(doc.company_history_details) }}</p>{%- endif %}
+				<div class="custom-timeline">
+					{% for d in doc.get({"doctype":"About Us Company History"}) %}
+					<div class="custom-timeline-box">
+						<span class="date font-weight-bold text-color-secondary line-height-6">{{ _(d.year) }}</span>
+						<h4 class="text-color-dark font-weight-semibold">{{ _(d.title) }}</h4>
+						<p class="custom-text-color-1">{{ _(d.highlight) }}</p>
+					</div>
+					{% endfor %}
+					<div class="timeline-bar"></div>
+				</div>
+			</div>
+			{% if doc.company_history_image -%}
+			<div class="col-lg-6 text-center">
+				<aside class="sidebar" id="sidebar" data-plugin-sticky data-plugin-options="{'minWidth': 991, 'containerSelector': '.container', 'padding': {'top': 110}}">
+				<img src="{{ doc.company_history_image }}" alt class="img-fluid rounded" />
+				</aside>
+			</div>
+			{%- endif %}
+		</div>
+	</div>
+</section>
+{% endif %}
+{% if doc.get({"doctype":"About Us Team Member"}) and doc.team_members_heading %}
+<section class="section section-no-border  bg-color-grey-scale-1 custom-section-spacement-1 m-0">
+	<div class="container">
+		<div class="row text-center">
+			<div class="col">
+				<h2 class="text-uppercase text-color-dark font-weight-bold m-0">{{ _(doc.team_members_heading) or "" }}</h2>
+				{% if doc.team_members_description -%}<p class="text-4 text-color-dark">{{ _(doc.team_members_description) }}</p>{%- endif %}
+				<div class="divider divider-secondary divider-small divider-small-center mb-4 mt-0">
+					<hr class="mt-2">
+				</div>
+				{% if doc.team_members_details -%}<p class="custom-text-color-1">{{ _(doc.team_members_details) }}</p>{%- endif %}
+			</div>
+		</div>
+		<div class="row">
+			{% for d in doc.get({"doctype":"About Us Team Member"}) %}
+			<div class="col-md-{{ column_value_member_item }} col-sm-6">
+				<a href="#" class="popup-with-zoom-anim text-decoration-none">
+					<span class="thumb-info custom-thumb-info-1 thumb-info-no-borders">
+						<span class="thumb-info-wrapper p-0">
+							<img src="{{ d.image_link }}" class="img-fluid" alt="">
+						</span>
+						<span class="thumb-info-caption bg-color-light">
+							<span class="thumb-info-caption-text">
+								<span class="thumb-info-caption-title text-uppercase text-color-dark font-weight-bold">{{ _(d.full_name) }}</span>
+								<p>{{ _(d.bio) }}</p>
+							</span>
+						</span>
+					</span>
+				</a>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</section>
+{% endif %}
+{% endblock %}
