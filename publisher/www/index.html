@@ -153,7 +153,7 @@
 
 									<div class="product-thumb-info-badges-wrapper">
 										<span class="badge badge-ecommerce badge-success">{{ _("New") }}</span>
-										{% if item.product_info.price.price_list_rate %}<span class="badge badge-ecommerce badge-danger">{{ _(item.product_info.price.currency or "") }} {{ item.product_info.price.price_list_rate }}</span>{% endif %}
+										{% if item.price or item.product_info.price%}<span class="badge badge-ecommerce badge-danger">{{ _(item.price.currency or item.product_info.price.currency or "") }} {{ item.price.price_list_rate or item.product_info.price.price_list_rate }}</span>{% endif %}
                   </div>
 
                   <!--<div class="addtocart-btn-wrapper">
@@ -185,7 +185,7 @@
                   <input type="text" class="d-none" value="5" title="" data-plugin-star-rating data-plugin-options="{'displayOnly': true, 'color': 'secondary', 'size':'xs'}">
                 </div>
 								<p class="price text-5 mb-3">
-										{% if item.product_info.price.price_list_rate %}<span class="sale text-color-dark font-weight-medium">{{ _(item.product_info.price.currency or "") }} {{ item.product_info.price.price_list_rate }}</span>{% endif %}
+										{% if item.price or item.product_info.price%}<span class="sale text-color-dark font-weight-medium">{{ _(item.price.currency or item.product_info.price.currency or "") }} {{ item.price.price_list_rate or item.product_info.price.price_list_rate }}</span>{% endif %}
 
                 </p>
 

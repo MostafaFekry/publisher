@@ -423,7 +423,7 @@ def get_items(filters=None, search=None,search_category='General'):
 		elif search_category == 'Description':
 			default_fields = {'name', 'item_name', 'description'}
 		elif search_category == 'Year':
-			default_fields = {'year(publication_date)'}
+			default_fields = {'publication_date'}
 		elif search_category == 'General':
 			default_fields = {'name', 'item_name', 'description', 'item_group', 'author', 'isbn'}
 		else:
