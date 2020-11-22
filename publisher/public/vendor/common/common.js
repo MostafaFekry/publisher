@@ -185,6 +185,7 @@ if( !$('html').hasClass('disable-onload-scroll') && window.location.hash && !['#
 	var $noticeTopBar = {
 		$wrapper: $('.notice-top-bar'),
 		$closeBtn: $('.notice-top-bar-close'),
+		$header: $('#header'),
 		$body: $('.body'),
 		init: function() {
 			var self = this;
@@ -215,6 +216,15 @@ if( !$('html').hasClass('disable-onload-scroll') && window.location.hash && !['#
 						pauseSpeed: 5000
 					});
 
+					if( ['absolute', 'fixed'].includes( self.$header.css('position') ) ) {
+						self.$header.css({
+							'top': self.$wrapper.outerHeight(),
+							'transition': 'ease top 300ms'
+						});
+					}
+
+					$(window).trigger('notice.top.bar.opened');
+
 				}, 1000);
 			});
 
@@ -232,6 +242,21 @@ if( !$('html').hasClass('disable-onload-scroll') && window.location.hash && !['#
 					self.$wrapper.remove();
 					self.saveCookie();
 				});
+
+				if( ['absolute', 'fixed'].includes( self.$header.css('position') ) ) {
+					self.$header.animate({
+						top: 0
+					}, 300);
+				}
+
+				// When header has shrink effect
+				if( self.$header.hasClass('header-effect-shrink') ) {
+					self.$header.find('.header-body').animate({
+						top: 0
+					}, 300);
+				}
+
+				$(window).trigger('notice.top.bar.closed');
 			});
 
 			return this;
@@ -457,6 +482,53 @@ function aspectRatioSVG() {
 
 		$(this).toggleClass( $(this).data('porto-toggle-class') );
 	});
+})(jQuery);
+
+/*
+* Dynamic Height
+*/
+(function($) {
+	var $window = $(window);
+
+	$window.on('resize', function(){
+
+		$('[data-dynamic-height]').each(function(){
+			var $this = $(this),
+				values = JSON.parse($this.data('dynamic-height').replace(/'/g,'"').replace(';',''))
+
+			// XS
+			if( $window.width() < 576 ) {
+				$this.height( values[4] );
+			}
+
+			// SM
+			if( $window.width() > 575 && $window.width() < 768 ) {
+				$this.height( values[3] );
+			}
+
+			// MD
+			if( $window.width() > 767 && $window.width() < 992 ) {
+				$this.height( values[2] );
+			}
+
+			// LG
+			if( $window.width() > 991 && $window.width() < 1200 ) {
+				$this.height( values[1] );
+			}
+
+			// XS
+			if( $window.width() > 1199 ) {
+				$this.height( values[0] );
+			}
+		});
+
+	});
+
+	// Mobile First Load
+	if( $window.width() < 992 ) {
+		$window.trigger('resize');
+	}
+
 })(jQuery);
 
 (function (factory) {
@@ -1739,6 +1811,8 @@ jQuery(document).ready(function($) {
 						hideWord($word)
 					}, revealAnimationDelay);
 				});
+
+				console.log(123);
 			} else {
 				$word.parents('.word-rotator-words').stop( true, true ).css('width', $word.outerWidth() + 10);
 				hideWord($word);

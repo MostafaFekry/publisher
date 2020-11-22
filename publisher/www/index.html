@@ -182,9 +182,9 @@
                   <!--<a href="#" class="text-decoration-none text-color-default text-color-hover-dark text-4"><i class="far fa-heart"></i></a>-->
                 </div>
                 <div title="Rated 5 out of 5">
-                  <input type="text" class="d-none" value="5" title="" data-plugin-star-rating data-plugin-options="{'displayOnly': true, 'color': 'secondary', 'size':'xs'}">
+									<input type="text" class="rating-invisible" value="5" title="" data-plugin-star-rating data-plugin-options="{'displayOnly': true, 'color': 'secondary', 'size':'xs'}">
                 </div>
-								<p class="price text-5 mb-3">
+								<p class="price text-4 mb-3">
 										{% if item.price or item.product_info.price%}<span class="sale text-color-dark font-weight-medium">{{ _(item.price.currency or item.product_info.price.currency or "") }} {{ item.price.price_list_rate or item.product_info.price.price_list_rate }}</span>{% endif %}
 
                 </p>
@@ -296,7 +296,7 @@
 
 <div role="main" class="main shop">
 	{% if slideshow -%}
-		{% include "templates/includes/home_slideshow.html" %}
+		{% include "templates/includes/slideshow.html" %}
 	{%- endif %}
 
 

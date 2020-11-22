@@ -73,6 +73,30 @@
 
 }).apply(this, [jQuery]);
 
+// Animated Letters
+(function($) {
+
+	'use strict';
+
+	if ($.isFunction($.fn['themePluginAnimatedLetters'])) {
+
+		$(function() {
+			$('[data-plugin-animated-letters]:not(.manual), .animated-letters').each(function() {
+				var $this = $(this),
+					opts;
+
+				var pluginOptions = theme.fn.getOptions($this.data('plugin-options'));
+				if (pluginOptions)
+					opts = pluginOptions;
+
+				$this.themePluginAnimatedLetters(opts);
+			});
+		});
+
+	}
+
+}).apply(this, [jQuery]);
+
 // Before / After
 (function($) {
 
@@ -113,7 +137,13 @@
 				if (pluginOptions)
 					opts = pluginOptions;
 
-				$this.themePluginCarousel(opts);
+				if( $('body[data-loading-overlay]').get(0) ) {
+					$(window).on('loading.overlay.ready', function(){
+						$this.themePluginCarousel(opts);
+					});
+				} else {
+					$this.themePluginCarousel(opts);
+				}
 			});
 		});
 
@@ -381,6 +411,30 @@
 					opts = pluginOptions;
 
 				$this.themePluginProgressBar(opts);
+			});
+		});
+
+	}
+
+}).apply(this, [jQuery]);
+
+// Read More
+(function($) {
+
+	'use strict';
+
+	if ($.isFunction($.fn['themePluginReadMore'])) {
+
+		$(function() {
+			$('[data-plugin-readmore]:not(.manual)').each(function() {
+				var $this = $(this),
+					opts;
+
+				var pluginOptions = theme.fn.getOptions($this.data('plugin-options'));
+				if (pluginOptions)
+					opts = pluginOptions;
+
+				$this.themePluginReadMore(opts);
 			});
 		});
 

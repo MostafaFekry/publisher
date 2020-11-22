@@ -132,6 +132,8 @@ jQuery(document).ready(function($) {
 						hideWord($word)
 					}, revealAnimationDelay);
 				});
+
+				console.log(123);
 			} else {
 				$word.parents('.word-rotator-words').stop( true, true ).css('width', $word.outerWidth() + 10);
 				hideWord($word);
