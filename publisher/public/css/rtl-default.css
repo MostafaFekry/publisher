@@ -751,3 +751,8 @@ html.boxed #footer {
     text-align: right !important;
     padding-right: 5px !important;
 }
+
+.modal-header .close {
+    padding: 1rem !important;
+    margin: -1rem 0rem auto !important;
+}

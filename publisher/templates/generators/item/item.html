@@ -77,9 +77,38 @@
 	</div>
 </div>
 {% endblock %}
-{%- block script %}
+{% block base_scripts %}
+<!-- js should be loaded in body! -->
+<script src="/assets/publisher/vendor/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/js/frappe-web.min.js"></script>
+<script type="text/javascript" src="/assets/js/bootstrap-4-web.min.js"></script>
 <script type="text/javascript" src="/assets/js/control.min.js"></script>
 <script type="text/javascript" src="/assets/js/dialog.min.js"></script>
+
+<script src="/assets/publisher/vendor/jquery.appear/jquery.appear.min.js"></script>
+<script src="/assets/publisher/vendor/jquery.easing/jquery.easing.min.js"></script>
+<script src="/assets/publisher/vendor/jquery.cookie/jquery.cookie.min.js"></script>
+<script src="/assets/publisher/vendor/popper/umd/popper.min.js"></script>
+<script src="/assets/publisher/vendor/common/common.min.js"></script>
+
+
+<script src="/assets/publisher/vendor/jquery.lazyload/jquery.lazyload.min.js"></script>
+<script src="/assets/publisher/vendor/owl.carousel/owl.carousel.min.js"></script>
+<script src="/assets/publisher/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+<!--<script src="/assets/publisher/vendor/vide/jquery.vide.min.js"></script>
+<script src="/assets/publisher/vendor/vivus/vivus.min.js"></script>-->
+
+<script src="/assets/publisher/vendor/bootstrap-star-rating/js/star-rating.min.js"></script>
+<script src="/assets/publisher/vendor/bootstrap-star-rating/themes/krajee-fas/theme.min.js"></script>
+
+<!-- Theme Base, Components and Settings -->
+<script src="/assets/publisher/js/theme.js"></script>
+
+<!-- Theme Initialization Files -->
+<script src="/assets/publisher/js/theme.init.js"></script>
+{% endblock %}
+{%- block script %}
+
 <!-- Examples -->
 <script src="/assets/publisher/js/examples/examples.gallery.js"></script>
 {%- endblock %}
